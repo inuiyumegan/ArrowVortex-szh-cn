@@ -36,6 +36,7 @@
 #include <Managers/ChartMan.h>
 #include <Managers/NoteMan.h>
 #include <Managers/NoteskinMan.h>
+#include <Managers/LocaleMan.h>
 
 #include <Dialogs/SongProperties.h>
 #include <Dialogs/ChartList.h>
@@ -177,6 +178,9 @@ void init()
 {
 	loadRecentFiles();
 
+	// Initialize the locale manager first, so translation is available early.
+	LocaleMan::create();
+
 	// Load the editor settings.
 	XmrDoc settings;
 	settings.loadFile("settings/settings.txt");
@@ -279,6 +283,7 @@ void shutdown()
 	NotesMan::destroy();
 	ChartMan::destroy();
 	TempoMan::destroy();
+	LocaleMan::destroy();
 	MetadataMan::destroy();
 	SimfileMan::destroy();
 	NoteskinMan::destroy();
@@ -322,6 +327,23 @@ void loadSettings(XmrDoc& settings)
 		const char* path = interface->get("fontPath");
 		FileReader testPath;
 		if(path && testPath.open(path)) myFontPath = path;
+
+		// 加载语言设置
+		const char* lang = interface->get("language");
+		if(lang)
+		{
+			if(Str::find(lang, "zh") == 0 || Str::find(lang, "ZH") == 0)
+				LocaleMan::setLanguage(Language::ZH_CN);
+			else if(Str::find(lang, "ja") == 0 || Str::find(lang, "JA") == 0)
+				LocaleMan::setLanguage(Language::JA_JP);
+			else if(Str::find(lang, "ko") == 0 || Str::find(lang, "KO") == 0)
+				LocaleMan::setLanguage(Language::KO_KR);
+		}
+		else
+		{
+			// 默认尝试加载中文翻译
+			LocaleMan::setLanguage(Language::ZH_CN);
+		}
 	}
 }
 
@@ -341,6 +363,15 @@ void saveGeneralSettings(XmrNode& settings)
 
 	interface->addAttrib("fontPath", myFontPath.str());
 	interface->addAttrib("fontSize", (long)myFontSize);
+
+	// 保存语言设置
+	switch(LocaleMan::currentLanguage())
+	{
+	case Language::ZH_CN: interface->addAttrib("language", "zh_CN"); break;
+	case Language::JA_JP: interface->addAttrib("language", "ja_JP"); break;
+	case Language::KO_KR: interface->addAttrib("language", "ko_KR"); break;
+	default: break; // English: don't save (no translation file)
+	}
 }
 
 void saveDialogSettings(XmrNode& settings)

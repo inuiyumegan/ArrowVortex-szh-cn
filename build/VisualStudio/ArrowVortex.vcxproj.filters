@@ -330,6 +330,9 @@
     <ClCompile Include="..\..\src\Managers\ChartMan.cpp">
       <Filter>Managers</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Managers\LocaleMan.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\Managers\NoteMan.cpp">
       <Filter>Managers</Filter>
     </ClCompile>
@@ -627,6 +630,9 @@
       <Filter>Simfile</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Managers\ChartMan.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Managers\LocaleMan.h">
       <Filter>Managers</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Managers\NoteMan.h">

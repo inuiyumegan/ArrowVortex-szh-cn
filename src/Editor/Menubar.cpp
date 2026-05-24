@@ -7,6 +7,7 @@
 #include <Managers/NoteskinMan.h>
 #include <Managers/SimfileMan.h>
 #include <Managers/StyleMan.h>
+#include <Managers/LocaleMan.h>
 
 #include <Editor/Action.h>
 #include <Editor/Shortcuts.h>
@@ -87,6 +88,11 @@ static void add(Item* menu, Action::Type action, const char* str)
 	}
 }
 
+static void add(Item* menu, Action::Type action, StringRef str)
+{
+	add(menu, action, str.str());
+}
+
 static void add(Item* menu, Action::Type action, const wchar_t* str)
 {
 	add(menu, action, Narrow(str).str());
@@ -102,9 +108,19 @@ static void add(Item* menu, int item, const char* str)
 	menu->addItem(item, str);
 }
 
+static void add(Item* menu, int item, StringRef str)
+{
+	menu->addItem(item, str.str());
+}
+
 static void sub(Item* menu, Item* sub, const char* str)
 {
 	menu->addSubmenu(sub, str);
+}
+
+static void sub(Item* menu, Item* sub, StringRef str)
+{
+	menu->addSubmenu(sub, str.str());
 }
 
 void init(Item* menu)
@@ -113,34 +129,34 @@ void init(Item* menu)
 
 	// File menu.
 	Item* hFile = newMenu();
-	add(hFile, FILE_OPEN, "打开...");
-	add(hFile, 0 /*dummy*/, "最近文件");
-	add(hFile, FILE_CLOSE, "关闭");
+	add(hFile, FILE_OPEN, _TR("Open..."));
+	add(hFile, 0 /*dummy*/, _TR("Recent files"));
+	add(hFile, FILE_CLOSE, _TR("Close"));
 	sep(hFile);
-	add(hFile, FILE_SAVE, "保存");
-	add(hFile, FILE_SAVE_AS, "另存为...");
+	add(hFile, FILE_SAVE, _TR("Save"));
+	add(hFile, FILE_SAVE_AS, _TR("Save as..."));
 	sep(hFile);
-	add(hFile, OPEN_DIALOG_SONG_PROPERTIES, "属性...");
+	add(hFile, OPEN_DIALOG_SONG_PROPERTIES, _TR("Properties..."));
 	sep(hFile);
-	add(hFile, EXIT_PROGRAM, "退出");
+	add(hFile, EXIT_PROGRAM, _TR("Exit"));
 	myFileMenu = hFile;
 
 	// Edit menu.
 	Item* hEdit = myEditMenu = newMenu();
-	add(hEdit, EDIT_UNDO, "撤销\tCtrl+Z");
-	add(hEdit, EDIT_REDO, "重做\tCtrl+Y");
+	add(hEdit, EDIT_UNDO, _TR("Undo"));
+	add(hEdit, EDIT_REDO, _TR("Redo"));
 	sep(hEdit);
-	add(hEdit, EDIT_CUT, "剪切\tCtrl+X");
-	add(hEdit, EDIT_COPY, "复制\tCtrl+C");
-	add(hEdit, EDIT_PASTE, "粘贴\tCtrl+V");
-	add(hEdit, EDIT_DELETE, "删除\tDelete");
+	add(hEdit, EDIT_CUT, _TR("Cut"));
+	add(hEdit, EDIT_COPY, _TR("Copy"));
+	add(hEdit, EDIT_PASTE, _TR("Paste"));
+	add(hEdit, EDIT_DELETE, _TR("Delete"));
 	sep(hEdit);
-	add(hEdit, SELECT_ALL, "全选\tCtrl+A");
-	add(hEdit, SELECT_REGION, "选择区域");
+	add(hEdit, SELECT_ALL, _TR("Select all"));
+	add(hEdit, SELECT_REGION, _TR("Select region"));
 	sep(hEdit);
-	add(hEdit, TOGGLE_JUMP_TO_NEXT_NOTE, "启用跳转到下一音符");
-	add(hEdit, TOGGLE_UNDO_REDO_JUMP, "启用撤销/重做跳转");
-	add(hEdit, TOGGLE_TIME_BASED_COPY, "启用基于时间的复制");
+	add(hEdit, TOGGLE_JUMP_TO_NEXT_NOTE, _TR("Enable jump to next note"));
+	add(hEdit, TOGGLE_UNDO_REDO_JUMP, _TR("Enable undo/redo jump"));
+	add(hEdit, TOGGLE_TIME_BASED_COPY, _TR("Enable time-based copy"));
 
 	// Chart > Convert menu.
 	Item* hChartConvert = newMenu();
@@ -149,44 +165,44 @@ void init(Item* menu)
 
 	// Chart menu.
 	Item* hChart = newMenu();
-	add(hChart, OPEN_DIALOG_CHART_LIST, "Chart list...");
-	add(hChart, OPEN_DIALOG_CHART_PROPERTIES, "Properties...");
-	add(hChart, OPEN_DIALOG_DANCING_BOT, "Dancing bot...");
+	add(hChart, OPEN_DIALOG_CHART_LIST, _TR("Chart list..."));
+	add(hChart, OPEN_DIALOG_CHART_PROPERTIES, _TR("Properties..."));
+	add(hChart, OPEN_DIALOG_DANCING_BOT, _TR("Dancing bot..."));
 	sep(hChart);
-	add(hChart, OPEN_DIALOG_NEW_CHART, "New chart...");
+	add(hChart, OPEN_DIALOG_NEW_CHART, _TR("New chart..."));
 	sep(hChart);
-	add(hChart, CHART_PREVIOUS, "Previous chart");
-	add(hChart, CHART_NEXT, "Next chart");
+	add(hChart, CHART_PREVIOUS, _TR("Previous chart"));
+	add(hChart, CHART_NEXT, _TR("Next chart"));
 	sep(hChart);
-	sub(hChart, hChartConvert, "Convert");
+	sub(hChart, hChartConvert, _TR("Convert"));
 	sep(hChart);
-	add(hChart, CHART_DELETE, "Delete chart");
+	add(hChart, CHART_DELETE, _TR("Delete chart"));
 
 	// Notes > Select > Quantization menu.
 	Item* hSelectQuant = newMenu();
-	add(hSelectQuant, SELECT_QUANT_4, "4th");
-	add(hSelectQuant, SELECT_QUANT_8, "8th");
-	add(hSelectQuant, SELECT_QUANT_12, "12th");
-	add(hSelectQuant, SELECT_QUANT_16, "16th");
-	add(hSelectQuant, SELECT_QUANT_24, "24th");
-	add(hSelectQuant, SELECT_QUANT_32, "32nd");
-	add(hSelectQuant, SELECT_QUANT_48, "48th");
-	add(hSelectQuant, SELECT_QUANT_64, "64th");
-	add(hSelectQuant, SELECT_QUANT_192, "192nd");
+	add(hSelectQuant, SELECT_QUANT_4, _TR("4th"));
+	add(hSelectQuant, SELECT_QUANT_8, _TR("8th"));
+	add(hSelectQuant, SELECT_QUANT_12, _TR("12th"));
+	add(hSelectQuant, SELECT_QUANT_16, _TR("16th"));
+	add(hSelectQuant, SELECT_QUANT_24, _TR("24th"));
+	add(hSelectQuant, SELECT_QUANT_32, _TR("32nd"));
+	add(hSelectQuant, SELECT_QUANT_48, _TR("48th"));
+	add(hSelectQuant, SELECT_QUANT_64, _TR("64th"));
+	add(hSelectQuant, SELECT_QUANT_192, _TR("192nd"));
 
 	// Notes > Select menu.
 	Item* hSelection = newMenu();
-	sub(hSelection, hSelectQuant, "Quantization");
+	sub(hSelection, hSelectQuant, _TR("Quantization"));
 	sep(hSelection);
-	add(hSelection, SELECT_ALL_STEPS, "Steps");
-	add(hSelection, SELECT_ALL_MINES, "Mines");
-	add(hSelection, SELECT_ALL_HOLDS, "Holds");
-	add(hSelection, SELECT_ALL_ROLLS, "Rolls");
-	add(hSelection, SELECT_ALL_FAKES, "Fakes");
-	add(hSelection, SELECT_ALL_LIFTS, "Lifts");
+	add(hSelection, SELECT_ALL_STEPS, _TR("Steps"));
+	add(hSelection, SELECT_ALL_MINES, _TR("Mines"));
+	add(hSelection, SELECT_ALL_HOLDS, _TR("Holds"));
+	add(hSelection, SELECT_ALL_ROLLS, _TR("Rolls"));
+	add(hSelection, SELECT_ALL_FAKES, _TR("Fakes"));
+	add(hSelection, SELECT_ALL_LIFTS, _TR("Lifts"));
 	sep(hSelection);
-	add(hSelection, SELECT_REGION_BEFORE_CURSOR, "Before cursor");
-	add(hSelection, SELECT_REGION_AFTER_CURSOR, "After cursor");
+	add(hSelection, SELECT_REGION_BEFORE_CURSOR, _TR("Before cursor"));
+	add(hSelection, SELECT_REGION_AFTER_CURSOR, _TR("After cursor"));
 
 	// Notes > Convert menu.
 	Item* hNoteConvert = newMenu();
@@ -209,193 +225,193 @@ void init(Item* menu)
 
 	// Notes > Mirror menu.
 	Item* hNoteMirror = newMenu();
-	add(hNoteMirror, MIRROR_NOTES_HORIZONTALLY, L"Horizontally");
-	add(hNoteMirror, MIRROR_NOTES_VERTICALLY, L"Vertically");
-	add(hNoteMirror, MIRROR_NOTES_FULL, L"Both");
+	add(hNoteMirror, MIRROR_NOTES_HORIZONTALLY, _TR("Horizontally"));
+	add(hNoteMirror, MIRROR_NOTES_VERTICALLY, _TR("Vertically"));
+	add(hNoteMirror, MIRROR_NOTES_FULL, _TR("Both"));
 
 	// Notes > Expand menu.
 	Item* hNoteExpand = newMenu();
-	add(hNoteExpand, SCALE_NOTES_2_TO_1, "2:1 (8th to 4th)");
-	add(hNoteExpand, SCALE_NOTES_3_TO_2, "3:2 (12th to 8th)");
-	add(hNoteExpand, SCALE_NOTES_4_TO_3, "4:3 (16th to 12th)");
+	add(hNoteExpand, SCALE_NOTES_2_TO_1, _TR("2:1 (8th to 4th)"));
+	add(hNoteExpand, SCALE_NOTES_3_TO_2, _TR("3:2 (12th to 8th)"));
+	add(hNoteExpand, SCALE_NOTES_4_TO_3, _TR("4:3 (16th to 12th)"));
 
 	// Notes > Compress menu.
 	Item* hNoteCompress = newMenu();
-	add(hNoteCompress, SCALE_NOTES_1_TO_2, "1:2 (4th to 8th)");
-	add(hNoteCompress, SCALE_NOTES_2_TO_3, "2:3 (8th to 12th)");
-	add(hNoteCompress, SCALE_NOTES_3_TO_4, "3:4 (12th to 16th)");
+	add(hNoteCompress, SCALE_NOTES_1_TO_2, _TR("1:2 (4th to 8th)"));
+	add(hNoteCompress, SCALE_NOTES_2_TO_3, _TR("2:3 (8th to 12th)"));
+	add(hNoteCompress, SCALE_NOTES_3_TO_4, _TR("3:4 (12th to 16th)"));
 
 	// Notes menu.
 	Item* hNotes = newMenu();
-	sub(hNotes, hSelection, "Select");
-	sub(hNotes, hNoteConvert, "Convert");
-	sub(hNotes, hNoteMirror, "Mirror");
-	sub(hNotes, hNoteExpand, "Expand");
-	sub(hNotes, hNoteCompress, "Compress");
-	add(hNotes, OPEN_DIALOG_GENERATE_NOTES, "Generate...");
+	sub(hNotes, hSelection, _TR("Select"));
+	sub(hNotes, hNoteConvert, _TR("Convert"));
+	sub(hNotes, hNoteMirror, _TR("Mirror"));
+	sub(hNotes, hNoteExpand, _TR("Expand"));
+	sub(hNotes, hNoteCompress, _TR("Compress"));
+	add(hNotes, OPEN_DIALOG_GENERATE_NOTES, _TR("Generate..."));
 
 	// Tempo > Select menu.
 	Item* hSelectTempo = newMenu();
-	add(hSelectTempo, SELECT_TEMPO_BPM, "BPM");
-	add(hSelectTempo, SELECT_TEMPO_STOP, "Stop");
-	add(hSelectTempo, SELECT_TEMPO_DELAY, "Delay");
-	add(hSelectTempo, SELECT_TEMPO_WARP, "Warp");
-	add(hSelectTempo, SELECT_TEMPO_TIME_SIG, "Time Sig.");
-	add(hSelectTempo, SELECT_TEMPO_TICK_COUNT, "Tick Count");
-	add(hSelectTempo, SELECT_TEMPO_COMBO, "Combo");
-	add(hSelectTempo, SELECT_TEMPO_SPEED, "Speed");
-	add(hSelectTempo, SELECT_TEMPO_SCROLL, "Scroll");
-	add(hSelectTempo, SELECT_TEMPO_FAKE, "Fake");
-	add(hSelectTempo, SELECT_TEMPO_LABEL, "Label");
+	add(hSelectTempo, SELECT_TEMPO_BPM, _TR("BPM"));
+	add(hSelectTempo, SELECT_TEMPO_STOP, _TR("Stop"));
+	add(hSelectTempo, SELECT_TEMPO_DELAY, _TR("Delay"));
+	add(hSelectTempo, SELECT_TEMPO_WARP, _TR("Warp"));
+	add(hSelectTempo, SELECT_TEMPO_TIME_SIG, _TR("Time Sig."));
+	add(hSelectTempo, SELECT_TEMPO_TICK_COUNT, _TR("Tick Count"));
+	add(hSelectTempo, SELECT_TEMPO_COMBO, _TR("Combo"));
+	add(hSelectTempo, SELECT_TEMPO_SPEED, _TR("Speed"));
+	add(hSelectTempo, SELECT_TEMPO_SCROLL, _TR("Scroll"));
+	add(hSelectTempo, SELECT_TEMPO_FAKE, _TR("Fake"));
+	add(hSelectTempo, SELECT_TEMPO_LABEL, _TR("Label"));
 
 	// Tempo > Visual sync menu
 	myVisualSyncMenu = newMenu();
-	add(myVisualSyncMenu, SET_VISUAL_SYNC_CURSOR_ANCHOR, "Cursor row");
-	add(myVisualSyncMenu, SET_VISUAL_SYNC_RECEPTOR_ANCHOR, "Receptors row");
+	add(myVisualSyncMenu, SET_VISUAL_SYNC_CURSOR_ANCHOR, _TR("Cursor row"));
+	add(myVisualSyncMenu, SET_VISUAL_SYNC_RECEPTOR_ANCHOR, _TR("Receptors row"));
   
 	// Tempo menu.
 	Item* hTempo = newMenu();
-	sub(hTempo, hSelectTempo, "Select");
+	sub(hTempo, hSelectTempo, _TR("Select"));
 	sep(hTempo);
-	add(hTempo, OPEN_DIALOG_ADJUST_SYNC, "Adjust sync...");
-	add(hTempo, OPEN_DIALOG_ADJUST_TEMPO, "Adjust tempo...");
-	add(hTempo, OPEN_DIALOG_ADJUST_TEMPO_SM5, "Adjust tempo SM5...");
+	add(hTempo, OPEN_DIALOG_ADJUST_SYNC, _TR("Adjust sync..."));
+	add(hTempo, OPEN_DIALOG_ADJUST_TEMPO, _TR("Adjust tempo..."));
+	add(hTempo, OPEN_DIALOG_ADJUST_TEMPO_SM5, _TR("Adjust tempo SM5..."));
 	sep(hTempo);
-	add(hTempo, SWITCH_TO_SYNC_MODE, "Sync mode");
-	add(hTempo, OPEN_DIALOG_TEMPO_BREAKDOWN, "Breakdown...");
-	sub(hTempo, myVisualSyncMenu, "Visual sync anchor");
+	add(hTempo, SWITCH_TO_SYNC_MODE, _TR("Sync mode"));
+	add(hTempo, OPEN_DIALOG_TEMPO_BREAKDOWN, _TR("Breakdown..."));
+	sub(hTempo, myVisualSyncMenu, _TR("Visual sync anchor"));
 
 	// Audio > Volume menu.
 	Item* hAudioVol = newMenu();
-	add(hAudioVol, VOLUME_RESET, "Default");
+	add(hAudioVol, VOLUME_RESET, _TR("Default"));
 	sep(hAudioVol);
-	add(hAudioVol, VOLUME_INCREASE, "Louder");
-	add(hAudioVol, VOLUME_DECREASE, "Softer");
+	add(hAudioVol, VOLUME_INCREASE, _TR("Louder"));
+	add(hAudioVol, VOLUME_DECREASE, _TR("Softer"));
 	sep(hAudioVol);
-	add(hAudioVol, VOLUME_MUTE, "Mute");
+	add(hAudioVol, VOLUME_MUTE, _TR("Mute"));
 
 	// Audio > Speed menu.
 	Item* hAudioSpeed = newMenu();
-	add(hAudioSpeed, SPEED_RESET, "Default");
+	add(hAudioSpeed, SPEED_RESET, _TR("Default"));
 	sep(hAudioSpeed);
-	add(hAudioSpeed, SPEED_INCREASE, "Faster");
-	add(hAudioSpeed, SPEED_DECREASE, "Slower");
+	add(hAudioSpeed, SPEED_INCREASE, _TR("Faster"));
+	add(hAudioSpeed, SPEED_DECREASE, _TR("Slower"));
 
 	// Audio menu.
 	Item* hAudio = newMenu();
-	sub(hAudio, hAudioVol, "Volume");
-	sub(hAudio, hAudioSpeed, "Speed");
+	sub(hAudio, hAudioVol, _TR("Volume"));
+	sub(hAudio, hAudioSpeed, _TR("Speed"));
 	sep(hAudio);
-	add(hAudio, TOGGLE_BEAT_TICK, "Beat tick");
-	add(hAudio, TOGGLE_NOTE_TICK, "Note tick");
+	add(hAudio, TOGGLE_BEAT_TICK, _TR("Beat tick"));
+	add(hAudio, TOGGLE_NOTE_TICK, _TR("Note tick"));
 	sep(hAudio);
-	add(hAudio, CONVERT_MUSIC_TO_OGG, "Convert to ogg");
+	add(hAudio, CONVERT_MUSIC_TO_OGG, _TR("Convert to ogg"));
 
 	// View > Minimap menu.
 	Item* hViewMm = myMinimapMenu = newMenu();
-	add(hViewMm, MINIMAP_SET_NOTES, "Notes");
-	add(hViewMm, MINIMAP_SET_DENSITY, "Density");
+	add(hViewMm, MINIMAP_SET_NOTES, _TR("Notes"));
+	add(hViewMm, MINIMAP_SET_DENSITY, _TR("Density"));
 	
 	// View > Background menu.
 	Item* hViewBg = myBgStyleMenu = newMenu();
-	add(hViewBg, BACKGROUND_HIDE, "Hide");
+	add(hViewBg, BACKGROUND_HIDE, _TR("Hide"));
 	sep(hViewBg);
-	add(hViewBg, BACKGROUND_INCREASE_ALPHA, "More visible");
-	add(hViewBg, BACKGROUND_DECREASE_ALPHA, "Less visible");
+	add(hViewBg, BACKGROUND_INCREASE_ALPHA, _TR("More visible"));
+	add(hViewBg, BACKGROUND_DECREASE_ALPHA, _TR("Less visible"));
 	sep(hViewBg);
-	add(hViewBg, BACKGROUND_SET_STRETCH, "Stretch");
-	add(hViewBg, BACKGROUND_SET_LETTERBOX, "Letterbox");
-	add(hViewBg, BACKGROUND_SET_CROP, "Crop");
+	add(hViewBg, BACKGROUND_SET_STRETCH, _TR("Stretch"));
+	add(hViewBg, BACKGROUND_SET_LETTERBOX, _TR("Letterbox"));
+	add(hViewBg, BACKGROUND_SET_CROP, _TR("Crop"));
 
 	// View > Zoom menu.
 	Item* hViewZoom = newMenu();
-	add(hViewZoom, OPEN_DIALOG_ZOOM, "Options");
+	add(hViewZoom, OPEN_DIALOG_ZOOM, _TR("Options"));
 	sep(hViewZoom);
-	add(hViewZoom, ZOOM_RESET, "Reset");
+	add(hViewZoom, ZOOM_RESET, _TR("Reset"));
 	sep(hViewZoom);
-	add(hViewZoom, ZOOM_IN, "Zoom in");
-	add(hViewZoom, ZOOM_OUT, "Zoom out");
-	add(hViewZoom, SCALE_INCREASE, "Scale increase");
-	add(hViewZoom, SCALE_DECREASE, "Scale decrease");
+	add(hViewZoom, ZOOM_IN, _TR("Zoom in"));
+	add(hViewZoom, ZOOM_OUT, _TR("Zoom out"));
+	add(hViewZoom, SCALE_INCREASE, _TR("Scale increase"));
+	add(hViewZoom, SCALE_DECREASE, _TR("Scale decrease"));
 
 	// View > Snap menu.
 	Item* hViewSnap = newMenu();
-	add(hViewSnap, SNAP_RESET, "Reset");
+	add(hViewSnap, SNAP_RESET, _TR("Reset"));
 	sep(hViewSnap);
-	add(hViewSnap, OPEN_DIALOG_CUSTOM_SNAP, "Set Snap");
-	add(hViewSnap, SNAP_PREVIOUS, "Previous");
-	add(hViewSnap, SNAP_NEXT, "Next");
+	add(hViewSnap, OPEN_DIALOG_CUSTOM_SNAP, _TR("Set Snap"));
+	add(hViewSnap, SNAP_PREVIOUS, _TR("Previous"));
+	add(hViewSnap, SNAP_NEXT, _TR("Next"));
 
 	// View > Cursor menu.
 	Item* hViewCursor = newMenu();
-	add(hViewCursor, CURSOR_UP, "Up");
-	add(hViewCursor, CURSOR_DOWN, "Down");
+	add(hViewCursor, CURSOR_UP, _TR("Up"));
+	add(hViewCursor, CURSOR_DOWN, _TR("Down"));
 	sep(hViewCursor);
-	add(hViewCursor, CURSOR_PREVIOUS_BEAT, "Previous beat");
-	add(hViewCursor, CURSOR_NEXT_BEAT, "Next beat");
-	add(hViewCursor, CURSOR_PREVIOUS_MEASURE, "Previous measure");
-	add(hViewCursor, CURSOR_NEXT_MEASURE, "Next measure");
+	add(hViewCursor, CURSOR_PREVIOUS_BEAT, _TR("Previous beat"));
+	add(hViewCursor, CURSOR_NEXT_BEAT, _TR("Next beat"));
+	add(hViewCursor, CURSOR_PREVIOUS_MEASURE, _TR("Previous measure"));
+	add(hViewCursor, CURSOR_NEXT_MEASURE, _TR("Next measure"));
 	sep(hViewCursor);
-	add(hViewCursor, CURSOR_STREAM_START, "Stream start");
-	add(hViewCursor, CURSOR_STREAM_END, "Stream end");
+	add(hViewCursor, CURSOR_STREAM_START, _TR("Stream start"));
+	add(hViewCursor, CURSOR_STREAM_END, _TR("Stream end"));
 	sep(hViewCursor);
-	add(hViewCursor, CURSOR_SELECTION_START, "Selection start");
-	add(hViewCursor, CURSOR_SELECTION_END, "Selection end");
+	add(hViewCursor, CURSOR_SELECTION_START, _TR("Selection start"));
+	add(hViewCursor, CURSOR_SELECTION_END, _TR("Selection end"));
 	sep(hViewCursor);
-	add(hViewCursor, CURSOR_CHART_START, "First beat");
-	add(hViewCursor, CURSOR_CHART_END, "Last beat");
+	add(hViewCursor, CURSOR_CHART_START, _TR("First beat"));
+	add(hViewCursor, CURSOR_CHART_END, _TR("Last beat"));
 
 	// View > Statusbar menu.
 	myStatusMenu = newMenu();
-	add(myStatusMenu, TOGGLE_STATUS_CHART, "Show chart");
-	add(myStatusMenu, TOGGLE_STATUS_SNAP, "Show snap");
-	add(myStatusMenu, TOGGLE_STATUS_BPM, "Show BPM");
-	add(myStatusMenu, TOGGLE_STATUS_ROW, "Show row");
-	add(myStatusMenu, TOGGLE_STATUS_BEAT, "Show beat");
-	add(myStatusMenu, TOGGLE_STATUS_MEASURE, "Show measure");
-	add(myStatusMenu, TOGGLE_STATUS_TIME, "Show time");
-	add(myStatusMenu, TOGGLE_STATUS_TIMING_MODE, "Show timing mode");
+	add(myStatusMenu, TOGGLE_STATUS_CHART, _TR("Show chart"));
+	add(myStatusMenu, TOGGLE_STATUS_SNAP, _TR("Show snap"));
+	add(myStatusMenu, TOGGLE_STATUS_BPM, _TR("Show BPM"));
+	add(myStatusMenu, TOGGLE_STATUS_ROW, _TR("Show row"));
+	add(myStatusMenu, TOGGLE_STATUS_BEAT, _TR("Show beat"));
+	add(myStatusMenu, TOGGLE_STATUS_MEASURE, _TR("Show measure"));
+	add(myStatusMenu, TOGGLE_STATUS_TIME, _TR("Show time"));
+	add(myStatusMenu, TOGGLE_STATUS_TIMING_MODE, _TR("Show timing mode"));
 
 	// View menu.
 	myViewMenu = newMenu();
-	add(myViewMenu, TOGGLE_SHOW_WAVEFORM, "Show waveform");
-	add(myViewMenu, TOGGLE_SHOW_BEAT_LINES, "Show beat lines");
-	add(myViewMenu, TOGGLE_SHOW_TEMPO_BOXES, "Show tempo boxes");
-	add(myViewMenu, TOGGLE_SHOW_TEMPO_HELP, "Show tempo help");
-	add(myViewMenu, TOGGLE_SHOW_NOTES, "Show notes");
-	add(myViewMenu, TOGGLE_CHART_PREVIEW, "Use SM-style preview");
+	add(myViewMenu, TOGGLE_SHOW_WAVEFORM, _TR("Show waveform"));
+	add(myViewMenu, TOGGLE_SHOW_BEAT_LINES, _TR("Show beat lines"));
+	add(myViewMenu, TOGGLE_SHOW_TEMPO_BOXES, _TR("Show tempo boxes"));
+	add(myViewMenu, TOGGLE_SHOW_TEMPO_HELP, _TR("Show tempo help"));
+	add(myViewMenu, TOGGLE_SHOW_NOTES, _TR("Show notes"));
+	add(myViewMenu, TOGGLE_CHART_PREVIEW, _TR("Use SM-style preview"));
 	sep(myViewMenu);
-	add(myViewMenu, TOGGLE_REVERSE_SCROLL, "Reverse scroll");
+	add(myViewMenu, TOGGLE_REVERSE_SCROLL, _TR("Reverse scroll"));
 	sep(myViewMenu);
-	add(myViewMenu, USE_TIME_BASED_VIEW, "Time based (C-mod)");
-	add(myViewMenu, USE_ROW_BASED_VIEW, "Row based (X-mod)");
+	add(myViewMenu, USE_TIME_BASED_VIEW, _TR("Time based (C-mod)"));
+	add(myViewMenu, USE_ROW_BASED_VIEW, _TR("Row based (X-mod)"));
 	sep(myViewMenu);
-	add(myViewMenu, OPEN_DIALOG_WAVEFORM_SETTINGS, "Waveform...");
-	add(myViewMenu, 0 /*dummy*/, "Noteskins");
-	sub(myViewMenu, myMinimapMenu, "Minimap");
-	sub(myViewMenu, myBgStyleMenu, "Background");
-	sub(myViewMenu, hViewZoom, "Zoom");
-	sub(myViewMenu, hViewSnap, "Snap");
-	sub(myViewMenu, hViewCursor, "Cursor");
-	sub(myViewMenu, myStatusMenu, "Status");
+	add(myViewMenu, OPEN_DIALOG_WAVEFORM_SETTINGS, _TR("Waveform..."));
+	add(myViewMenu, 0 /*dummy*/, _TR("Noteskins"));
+	sub(myViewMenu, myMinimapMenu, _TR("Minimap"));
+	sub(myViewMenu, myBgStyleMenu, _TR("Background"));
+	sub(myViewMenu, hViewZoom, _TR("Zoom"));
+	sub(myViewMenu, hViewSnap, _TR("Snap"));
+	sub(myViewMenu, hViewCursor, _TR("Cursor"));
+	sub(myViewMenu, myStatusMenu, _TR("Status"));
 
 	// Help menu.
 	Item* hHelp = newMenu();
-	add(hHelp, SHOW_SHORTCUTS, "Shortcuts...");
-	add(hHelp, SHOW_MESSAGE_LOG, "Message Log...");
-	add(hHelp, SHOW_DEBUG_LOG, "Debug Log...");
+	add(hHelp, SHOW_SHORTCUTS, _TR("Shortcuts..."));
+	add(hHelp, SHOW_MESSAGE_LOG, _TR("Message Log..."));
+	add(hHelp, SHOW_DEBUG_LOG, _TR("Debug Log..."));
 	sep(hHelp);
-	add(hHelp, SHOW_ABOUT, "About...");
+	add(hHelp, SHOW_ABOUT, _TR("About..."));
 
 	// Top level menu.
-	sub(menu, hFile, "File");
-	sub(menu, hEdit, "Edit");
-	sub(menu, hChart, "Chart");
-	sub(menu, hNotes, "Notes");
-	sub(menu, hTempo, "Tempo");
-	sub(menu, hAudio, "Audio");
-	sub(menu, myViewMenu, "View");
-	sub(menu, hHelp, "Help");
+	sub(menu, hFile, _TR("File"));
+	sub(menu, hEdit, _TR("Edit"));
+	sub(menu, hChart, _TR("Chart"));
+	sub(menu, hNotes, _TR("Notes"));
+	sub(menu, hTempo, _TR("Tempo"));
+	sub(menu, hAudio, _TR("Audio"));
+	sub(menu, myViewMenu, _TR("View"));
+	sub(menu, hHelp, _TR("Help"));
 
 	update(ALL_PROPERTIES);
 }
@@ -419,14 +435,14 @@ void registerUpdateFunctions()
 		int numFiles = min(gEditor->getNumRecentFiles(), (int)Action::MAX_RECENT_FILES);
 		if(numFiles > 0)
 		{
-			recent->addItem(FILE_CLEAR_RECENT_FILES, "Clear list");
+			recent->addItem(FILE_CLEAR_RECENT_FILES, _TR("Clear list"));
 			recent->addSeperator();
 			for(int i = 0; i < numFiles; ++i)
 			{
 				recent->addItem(FILE_OPEN_RECENT_BEGIN + i, gEditor->getRecentFile(i));
 			}
 		}
-		MENU->myFileMenu->replaceSubmenu(1, recent, "Recent files", (numFiles == 0));
+		MENU->myFileMenu->replaceSubmenu(1, recent, _TR("Recent files"), (numFiles == 0));
 	};
 	myUpdateFunctions[SHOW_WAVEFORM] = []
 	{

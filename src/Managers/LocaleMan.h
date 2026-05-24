@@ -53,9 +53,13 @@ private:
 };
 
 /// 全局便捷宏
-/// _TR(en, key)   - 带显式key的翻译
-/// _T(key)        - 直接key翻译
-#define _TR(en, key) Vortex::LocaleMan::tr(en, key)
-#define _T(key)      Vortex::LocaleMan::translate(key)
+/// _TR(en)         - 单参数：用英文原文作为 key 翻译
+/// _TR(en, key)    - 双参数：用 key 翻译，en 作为 fallback
+/// _T(key)         - 直接 key 翻译
+#define _TR_1(en)           Vortex::LocaleMan::tr(en)
+#define _TR_2(en, key)      Vortex::LocaleMan::tr(en, key)
+#define _TR_GET(_1, _2, NAME, ...) NAME
+#define _TR(...)            _TR_GET(__VA_ARGS__, _TR_2, _TR_1)(__VA_ARGS__)
+#define _T(key)             Vortex::LocaleMan::translate(key)
 
 } // namespace Vortex

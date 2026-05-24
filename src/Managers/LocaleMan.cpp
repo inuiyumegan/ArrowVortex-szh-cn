@@ -29,23 +29,23 @@ static String parseJsonString(const char*& p)
 			if (!*p) break;
 			switch (*p)
 			{
-			case 'n':  result += '\n'; break;
-			case 't':  result += '\t'; break;
-			case 'r':  result += '\r'; break;
-			case '\\': result += '\\'; break;
-			case '"':  result += '"'; break;
-			case '/':  result += '/'; break;
+			case 'n':  Str::append(result, '\n'); break;
+			case 't':  Str::append(result, '\t'); break;
+			case 'r':  Str::append(result, '\r'); break;
+			case '\\': Str::append(result, '\\'); break;
+			case '"':  Str::append(result, '"'); break;
+			case '/':  Str::append(result, '/'); break;
 			default:
 				// 未知转义，保留原字符
-				result += '\\';
-				result += *p;
+				Str::append(result, '\\');
+				Str::append(result, *p);
 				break;
 			}
 		}
 		else
 		{
 			// 直接追加 UTF-8 字节（支持中文等多字节字符）
-			result += *p;
+			Str::append(result, *p);
 		}
 		++p;
 	}
@@ -192,6 +192,7 @@ bool LocaleMan::setLanguage(Language lang)
 	}
 
 	Debug::log("LocaleMan :: failed to load language %d, keeping current\n", (int)lang);
+	return false;
 	return false;
 }
 

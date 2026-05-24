@@ -15,6 +15,7 @@
 #include <Managers/TempoMan.h>
 #include <Managers/MetadataMan.h>
 #include <Managers/SimfileMan.h>
+#include <Managers/LocaleMan.h>
 
 #include <Editor/Music.h>
 
@@ -57,7 +58,7 @@ DialogSongProperties::DialogSongProperties()
 {
 	gNotefield->toggleShowSongPreview();
 
-	setTitle("SIMFILE PROPERTIES");
+	setTitle(_TR("SIMFILE PROPERTIES"));
 
 	myCreateWidgets();
 
@@ -88,99 +89,99 @@ void DialogSongProperties::myCreateWidgets()
 
 	GuiWidget* w;
 
-	w = CreateField(myLayout, "Title", myTitle, [](String& s){ gMetadata->setTitle(s); });
-	w->setTooltip("Title of the song");
+	w = CreateField(myLayout, _TR("Title"), myTitle, [](String& s){ gMetadata->setTitle(s); });
+	w->setTooltip(_TR("Title of the song"));
 
-	w = CreateField(myLayout, "Subtitle", mySubtitle, [](String& s){ gMetadata->setSubtitle(s); });
-	w->setTooltip("Subtitle of the song");
+	w = CreateField(myLayout, _TR("Subtitle"), mySubtitle, [](String& s){ gMetadata->setSubtitle(s); });
+	w->setTooltip(_TR("Subtitle of the song"));
 
-	w = CreateField(myLayout, "Artist", myArtist, [](String& s){ gMetadata->setArtist(s); });
-	w->setTooltip("Artist of the song");
+	w = CreateField(myLayout, _TR("Artist"), myArtist, [](String& s){ gMetadata->setArtist(s); });
+	w->setTooltip(_TR("Artist of the song"));
 
-	w = CreateField(myLayout, "Credit",   myCredit,   [](String& s){ gMetadata->setCredit(s); });
-	w->setTooltip("Author of the simfile");
+	w = CreateField(myLayout, _TR("Credit"),   myCredit,   [](String& s){ gMetadata->setCredit(s); });
+	w->setTooltip(_TR("Author of the simfile"));
 
 	myLayout.row().col(418);
 	myLayout.add<WgSeperator>();
 	myLayout.row().col(72).col(314).col(24);
 
-	w = CreateField(myLayout, "Music", myMusic, [](String& s){ gMetadata->setMusicPath(s); });
-	w->setTooltip("Path of the music file");
+	w = CreateField(myLayout, _TR("Music"), myMusic, [](String& s){ gMetadata->setMusicPath(s); });
+	w->setTooltip(_TR("Path of the music file"));
 
 	auto findMusic = myLayout.add<WgButton>();
 	findMusic->onPress.bind(this, &DialogSongProperties::onFindMusic);
 	findMusic->text.set("{g:search}");
-	findMusic->setTooltip("Search the stepfile directory for audio files");
+	findMusic->setTooltip(_TR("Search the stepfile directory for audio files"));
 
-	w = CreateField(myLayout, "BG", myBackground, [](String& s){ gMetadata->setBackgroundPath(s); });
-	w->setTooltip("Path of the background image\nRecommended size: 640x480 (DDR/ITG) or larger");
+	w = CreateField(myLayout, _TR("BG"), myBackground, [](String& s){ gMetadata->setBackgroundPath(s); });
+	w->setTooltip(_TR("Path of the background image"));
 
 	auto findBG = myLayout.add<WgButton>();
 	findBG->onPress.bind(this, &DialogSongProperties::onFindBG);
 	findBG->text.set("{g:search}");
-	findBG->setTooltip("Search the stepfile directory for background images");
+	findBG->setTooltip(_TR("Search the stepfile directory for background images"));
 
-	w = CreateField(myLayout, "Banner", myBanner, [](String& s){ gMetadata->setBannerPath(s); });
-	w->setTooltip("Path of the banner image\nRecommended size: 256x80 / 512x160 (DDR), 418x164 (ITG)");
+	w = CreateField(myLayout, _TR("Banner"), myBanner, [](String& s){ gMetadata->setBannerPath(s); });
+	w->setTooltip(_TR("Path of the banner image"));
 
 	auto findBanner = myLayout.add<WgButton>();
 	findBanner->onPress.bind(this, &DialogSongProperties::onFindBanner);
 	findBanner->text.set("{g:search}");
-	findBanner->setTooltip("Search the stepfile directory for banner images");
+	findBanner->setTooltip(_TR("Search the stepfile directory for banner images"));
 
 	//myLayout.row().col(72).col(342);
 
-	w = CreateField(myLayout, "CD Title", myCdTitle, [](String& s){ gMetadata->setCdTitlePath(s); });
-	w->setTooltip("Path of the CD title image (logo of the simfile author)\nRecommended size: around 64x48 (DDR/ITG)");
+	w = CreateField(myLayout, _TR("CD Title"), myCdTitle, [](String& s){ gMetadata->setCdTitlePath(s); });
+	w->setTooltip(_TR("Path of the CD title image"));
 
 	auto findCDTitle = myLayout.add<WgButton>();
 	findCDTitle->onPress.bind(this, &DialogSongProperties::onFindCdTitle);
 	findCDTitle->text.set("{g:search}");
-	findCDTitle->setTooltip("Search the stepfile directory for CD title images");
+	findCDTitle->setTooltip(_TR("Search the stepfile directory for CD title images"));
 
 	myLayout.row().col(418);
 	myLayout.add<WgSeperator>();
 	myLayout.row().col(72).col(96).col(16).col(96).col(94).col(24);
 
-	auto previewStart = myLayout.add<WgLineEdit>("Preview");
+	auto previewStart = myLayout.add<WgLineEdit>(_TR("Preview"));
 	previewStart->text.bind(&myPreviewStart);
 	previewStart->setEditable(false);
-	previewStart->setTooltip("The start time of the music preview");
+	previewStart->setTooltip(_TR("The start time of the music preview"));
 
-	auto previewEnd = myLayout.add<WgLineEdit>("to");
+	auto previewEnd = myLayout.add<WgLineEdit>(_TR("to"));
 	previewEnd->text.bind(&myPreviewEnd);
 	previewEnd->setEditable(false);
-	previewEnd->setTooltip("The end time of the music preview");
+	previewEnd->setTooltip(_TR("The end time of the music preview"));
 
 	auto setPreview = myLayout.add<WgButton>();
 	setPreview->onPress.bind(this, &DialogSongProperties::onSetPreview);
-	setPreview->text.set("Set region");
-	setPreview->setTooltip("Set the music preview to the selected region");
+	setPreview->text.set(_TR("Set region"));
+	setPreview->setTooltip(_TR("Set the music preview to the selected region"));
 
 	auto playPreview = myLayout.add<WgButton>();
 	playPreview->onPress.bind(this, &DialogSongProperties::onPlayPreview);
 	playPreview->text.set("{g:play}");
-	playPreview->setTooltip("Play the music preview");
+	playPreview->setTooltip(_TR("Play the music preview"));
 
 	myLayout.row().col(72).col(96).col(16).col(96).col(122);
 
-	mySpinMinBPM = myLayout.add<WgSpinner>("Disp. BPM");
+	mySpinMinBPM = myLayout.add<WgSpinner>(_TR("Disp. BPM"));
 	mySpinMinBPM->value.bind(&myDisplayBpmRange.min);
 	mySpinMinBPM->onChange.bind(this, &DialogSongProperties::mySetDisplayBpm);
-	mySpinMinBPM->setTooltip("The low value of the display BPM");
+	mySpinMinBPM->setTooltip(_TR("The low value of the display BPM"));
 
-	mySpinMaxBPM = myLayout.add<WgSpinner>("to");
+	mySpinMaxBPM = myLayout.add<WgSpinner>(_TR("to"));
 	mySpinMaxBPM->value.bind(&myDisplayBpmRange.max);
 	mySpinMaxBPM->onChange.bind(this, &DialogSongProperties::mySetDisplayBpm);
-	mySpinMaxBPM->setTooltip("The high value of the display BPM");
+	mySpinMaxBPM->setTooltip(_TR("The high value of the display BPM"));
 
 	myBpmTypeList = myLayout.add<WgCycleButton>();
-	myBpmTypeList->addItem("Default");
-	myBpmTypeList->addItem("Custom");
-	myBpmTypeList->addItem("Random");
+	myBpmTypeList->addItem(_TR("Default"));
+	myBpmTypeList->addItem(_TR("Custom"));
+	myBpmTypeList->addItem(_TR("Random"));
 	myBpmTypeList->value.bind(&myDisplayBpmType);
 	myBpmTypeList->onChange.bind(this, &DialogSongProperties::mySetDisplayBpm);
-	myBpmTypeList->setTooltip("Determines how the BPM preview is displayed");
+	myBpmTypeList->setTooltip(_TR("Determines how the BPM preview is displayed"));
 }
 
 void DialogSongProperties::myUpdateWidgets()
