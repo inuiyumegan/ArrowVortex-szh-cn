@@ -25,7 +25,7 @@ statusbar {
   showChart = yes
   showSnap = yes
   showBpm = yes
-  showRow = no
+  showRow = yes
   showBeat = no
   showMeasure = yes
   showTime = yes
