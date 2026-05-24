@@ -118,18 +118,17 @@ void addShortcut(Action::Type action, const char* name)
 void LoadShortcuts()
 {
 	if(!displayShortcuts_.empty()) return;
+	addShortcutHeader(Vortex::_TR("Basic").str());
+	addShortcut(Vortex::_TR("Play/pause").str(), "Space");
 
-	addShortcutHeader("Basic");
-	addShortcut("Play/pause", "Space");
-
-	addShortcut(Action::SNAP_NEXT, "Increase snap");
-	addShortcut(Action::SNAP_PREVIOUS, "Decrease snap");
-	addShortcut(Action::CURSOR_UP, "Move cursor up");
-	addShortcut(Action::CURSOR_DOWN, "Move cursor down");
-	addShortcut(Action::ZOOM_IN, "Zoom in");
-	addShortcut(Action::ZOOM_OUT, "Zoom out");
-	addShortcut(Action::SCALE_INCREASE, "Scale Increase");
-	addShortcut(Action::SCALE_DECREASE, "Scale Decrease");
+	addShortcut(Action::SNAP_NEXT, Vortex::_TR("Increase snap").str());
+	addShortcut(Action::SNAP_PREVIOUS, Vortex::_TR("Decrease snap").str());
+	addShortcut(Action::CURSOR_UP, Vortex::_TR("Move cursor up").str());
+	addShortcut(Action::CURSOR_DOWN, Vortex::_TR("Move cursor down").str());
+	addShortcut(Action::ZOOM_IN, Vortex::_TR("Zoom in").str());
+	addShortcut(Action::ZOOM_OUT, Vortex::_TR("Zoom out").str());
+	addShortcut(Action::SCALE_INCREASE, Vortex::_TR("Scale Increase").str());
+	addShortcut(Action::SCALE_DECREASE, Vortex::_TR("Scale Decrease").str());
 	
 	addShortcutHeader("File");
 	addShortcut(Action::FILE_OPEN, "Open");
@@ -481,7 +480,7 @@ void drawMessageLog()
 		y += Text::getSize().y + 2;
 	}
 
-	DrawTitleText("MESSAGE LOG", "[ESC/F2] close", "[Delete] clear");
+	DrawTitleText(Vortex::_TR("MESSAGE LOG").str(), Vortex::_TR("[ESC/F2] close").str(), Vortex::_TR("[Delete] clear").str());
 	DrawScrollbar();
 }
 

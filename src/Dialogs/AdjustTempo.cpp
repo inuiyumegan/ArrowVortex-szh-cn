@@ -37,7 +37,7 @@ DialogAdjustTempo::~DialogAdjustTempo()
 
 DialogAdjustTempo::DialogAdjustTempo()
 {
-	setTitle("ADJUST TEMPO");
+	setTitle(Vortex::_TR("ADJUST TEMPO").str());
 	myCreateWidgets();
 	onChanges(VCM_ALL_CHANGES);
 	myBeatsToInsert = 1;
@@ -50,15 +50,15 @@ WgSpinner* DialogAdjustTempo::myCreateWidgetRow(StringRef label, int y, double& 
 
 	const char* tooltips[] =
 	{
-		"Halve the current BPM",
-		"Double the current BPM",
-		"Convert the selected region to a stop",
-		"Convert the selected region to a stutter gimmick",
+		Vortex::_TR("Halve the current BPM").str(),
+		Vortex::_TR("Double the current BPM").str(),
+		Vortex::_TR("Convert the selected region to a stop").str(),
+		Vortex::_TR("Convert the selected region to a stutter gimmick").str(),
 	};
 	const char* tooltips2[] =
 	{
-		"Stop length at the current beat, in seconds",
-		"Music tempo at the current beat, in beats per minute"
+		Vortex::_TR("Stop length at the current beat, in seconds").str(),
+		Vortex::_TR("Music tempo at the current beat, in beats per minute").str()
 	};
 
 	WgSpinner* spinner = myLayout.add<WgSpinner>(label);
@@ -89,12 +89,12 @@ void DialogAdjustTempo::myCreateWidgets()
 {
 	myLayout.row().col(38).col(116).col(24).col(24).col(24);
 
-	WgSpinner* bpm = myCreateWidgetRow("BPM", 0, myBPM, ACT_BPM_SET);
+	WgSpinner* bpm = myCreateWidgetRow(Vortex::_TR("BPM").str(), 0, myBPM, ACT_BPM_SET);
 	bpm->setRange(VC_MIN_BPM, VC_MAX_BPM);
 	bpm->setPrecision(3, 6);
 	bpm->setStep(1.0);
 
-	WgSpinner* stop = myCreateWidgetRow("Stop", 28, myStop, ACT_STOP_SET);
+	WgSpinner* stop = myCreateWidgetRow(Vortex::_TR("Stop").str(), 28, myStop, ACT_STOP_SET);
 	stop->setRange(VC_MIN_STOP, VC_MAX_STOP);
 	stop->setPrecision(3, 6);
 	stop->setStep(0.001);
@@ -104,30 +104,27 @@ void DialogAdjustTempo::myCreateWidgets()
 
 	myLayout.row().col(119).col(119);
 
-	WgSpinner* spinner = myLayout.add<WgSpinner>("Offset in beats");
+	WgSpinner* spinner = myLayout.add<WgSpinner>(Vortex::_TR("Offset in beats").str());
 	spinner->setRange(0.0, 100000.0);
 	spinner->value.bind(&myBeatsToInsert);
 	spinner->setPrecision(3, 6);
-	spinner->setTooltip("Number of beats to insert or remove");
+	spinner->setTooltip(Vortex::_TR("Number of beats to insert or remove").str());
 
-	WgCycleButton* cycle = myLayout.add<WgCycleButton>("Apply offset to");
-	cycle->addItem("This chart");
-	cycle->addItem("All charts");
+	WgCycleButton* cycle = myLayout.add<WgCycleButton>(Vortex::_TR("Apply offset to").str());
+	cycle->addItem(Vortex::_TR("This chart"));
+	cycle->addItem(Vortex::_TR("All charts"));
 	cycle->value.bind(&myInsertTarget);
 	cycle->setTooltip("Determines which notes and/or tempo changes are targeted");
 	
 	WgButton* insert = myLayout.add<WgButton>();
-	insert->text.set("Insert beats");
+	insert->text.set(Vortex::_TR("Insert beats"));
 	insert->onPress.bind(this, &DialogAdjustTempo::onAction, (int)ACT_INSERT_BEATS);
-	insert->setTooltip("Insert the above number of beats at the cursor position\n"
-		"All notes and tempo changes after the cursor will be shifted down");
+	insert->setTooltip(Vortex::_TR("Insert the above number of beats at the cursor position\nAll notes and tempo changes after the cursor will be shifted down").str());
 
 	WgButton* remove = myLayout.add<WgButton>();
-	remove->text.set("Delete beats");
+	remove->text.set(Vortex::_TR("Delete beats"));
 	remove->onPress.bind(this, &DialogAdjustTempo::onAction, (int)ACT_REMOVE_BEATS);
-	remove->setTooltip("Delete the above number of beats at the cursor position\n"
-		"All notes and tempo changes after the cursor will be shifted up\n"
-		"Notes and tempo changes in the deleted region will be removed");
+	remove->setTooltip(Vortex::_TR("Delete the above number of beats at the cursor position\nAll notes and tempo changes after the cursor will be shifted up\nNotes and tempo changes in the deleted region will be removed").str());
 }
 
 void DialogAdjustTempo::onChanges(int changes)

@@ -31,7 +31,7 @@ enum Actions
 
 DialogAdjustTempoSM5::~DialogAdjustTempoSM5()
 {
-}
+	setTitle(Vortex::_TR("ADJUST TEMPO (SM5)").str());
 
 DialogAdjustTempoSM5::DialogAdjustTempoSM5()
 {

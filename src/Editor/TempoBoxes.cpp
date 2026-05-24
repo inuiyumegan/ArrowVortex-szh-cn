@@ -414,13 +414,17 @@ void drawBoxHelp(const TempoBox& box)
 
 	TextStyle style;
 
+	// 翻译元信息文本（例如 "BPM change" / "Beats per minute"）
+	String name = Vortex::_TR(meta->singular);
+	String help = Vortex::_TR(meta->help);
+
 	style.fontSize = 12;
-	Text::arrange(Text::TC, style, meta->singular);
+	Text::arrange(Text::TC, style, name.str());
 	vec2i nameSize = Text::getSize();
 
 	style.fontSize = 10;
 	style.textColor = RGBAtoColor32(192, 192, 192, 255);
-	Text::arrange(Text::TC, style, meta->help);
+	Text::arrange(Text::TC, style, help.str());
 	vec2i helpSize = Text::getSize();
 
 	int w = max(nameSize.x, helpSize.x) + 12;
@@ -435,7 +439,7 @@ void drawBoxHelp(const TempoBox& box)
 
 	style.fontSize = 12;
 	style.textColor = Colors::white;
-	Text::arrange(Text::MC, style, meta->singular);
+	Text::arrange(Text::MC, style, name.str());
 	Text::draw(vec2i{x, y + 10});
 }
 

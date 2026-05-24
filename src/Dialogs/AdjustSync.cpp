@@ -40,7 +40,7 @@ DialogAdjustSync::DialogAdjustSync()
 	, myTempoDetector(nullptr)
 	, myDetectionRow(0)
 {
-	setTitle("ADJUST SYNC");
+	setTitle(Vortex::_TR("ADJUST SYNC").str());
 	myCreateWidgets();
 	onChanges(VCM_ALL_CHANGES);
 }
@@ -66,19 +66,19 @@ void DialogAdjustSync::myCreateWidgets()
 {
 	myLayout.row().col(84).col(124).col(24);
 
-	WgSpinner* offset = myCreateWidgetRow("Music offset", myOffset, ACT_SET_OFS, ACT_TWEAK_OFS,
-		"Music start time relative to the first beat, in seconds", "Tweak the music offset");
+	WgSpinner* offset = myCreateWidgetRow(Vortex::_TR("Music offset").str(), myOffset, ACT_SET_OFS, ACT_TWEAK_OFS,
+		Vortex::_TR("Music start time relative to the first beat, in seconds").str(), Vortex::_TR("Tweak the music offset").str());
 	offset->setRange(-100.0, 100.0);
 	offset->setStep(0.001);
 
-	WgSpinner* bpm = myCreateWidgetRow("Initial BPM", myInitialBPM, ACT_SET_BPM, ACT_TWEAK_BPM,
-		"Music tempo at the first beat, in beats per minute", "Tweak the initial BPM");
+	WgSpinner* bpm = myCreateWidgetRow(Vortex::_TR("Initial BPM").str(), myInitialBPM, ACT_SET_BPM, ACT_TWEAK_BPM,
+		Vortex::_TR("Music tempo at the first beat, in beats per minute").str(), Vortex::_TR("Tweak the initial BPM").str());
 	bpm->setRange(VC_MIN_BPM, VC_MAX_BPM);
 	bpm->setStep(1.0);
 
 	myLayout.row().col(128).col(24).col(24).col(24).col(24);
 	WgLabel* move = myLayout.add<WgLabel>();
-	move->text.set("Move first beat");
+	move->text.set(Vortex::_TR("Move first beat"));
 
 	const char* moveText[] =
 	{
@@ -89,10 +89,10 @@ void DialogAdjustSync::myCreateWidgets()
 	};
 	const char* moveTooltip[] =
 	{
-		"Increase the music offset by one beat",
-		"Increase the music offset by half a beat",
-		"Decrease the music offset by half a beat",
-		"Decrease the music offset by one beat",
+		Vortex::_TR("Increase the music offset by one beat").str(),
+		Vortex::_TR("Increase the music offset by half a beat").str(),
+		Vortex::_TR("Decrease the music offset by half a beat").str(),
+		Vortex::_TR("Decrease the music offset by one beat").str(),
 	};
 	for(int i = 0, x = 132; i < 4; ++i, x += 28)
 	{
@@ -108,19 +108,19 @@ void DialogAdjustSync::myCreateWidgets()
 	myBPMLabel = myLayout.add<WgLabel>();
 	myBPMList = myLayout.addH<WgSelectList>(62);
 	myBPMList->value.bind(&mySelectedResult);
-	myBPMList->setTooltip("BPM estimates calculated by the editor");
+	myBPMList->setTooltip(Vortex::_TR("BPM estimates calculated by the editor").str());
 
 	myLayout.row().col(118).col(118);
 	myApplyBPM = myLayout.add<WgButton>();
-	myApplyBPM->text.set("Apply BPM");
+	myApplyBPM->text.set(Vortex::_TR("Apply BPM"));
 	myApplyBPM->onPress.bind(this, &DialogAdjustSync::onApplyBPM);
-	myApplyBPM->setTooltip("Apply the selected BPM estimate");
+	myApplyBPM->setTooltip(Vortex::_TR("Apply the selected BPM estimate").str());
 	myApplyBPM->setEnabled(false);
 
 	myFindBPM = myLayout.add<WgButton>();
-	myFindBPM->text.set("{g:calculate} Find BPM");
+	myFindBPM->text.set(String::fmt("{g:calculate} %1").arg(Vortex::_TR("Find BPM")));
 	myFindBPM->onPress.bind(this, &DialogAdjustSync::onFindBPM);
-	myFindBPM->setTooltip("Estimate the music BPM by analyzing the audio");
+	myFindBPM->setTooltip(Vortex::_TR("Estimate the music BPM by analyzing the audio").str());
 }
 
 void DialogAdjustSync::onChanges(int changes)
