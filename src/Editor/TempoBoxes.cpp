@@ -26,6 +26,8 @@
 
 #include <algorithm>
 
+#include <Managers/LocaleMan.h>
+
 namespace Vortex {
 
 // ================================================================================================
@@ -415,8 +417,8 @@ void drawBoxHelp(const TempoBox& box)
 	TextStyle style;
 
 	// 翻译元信息文本（例如 "BPM change" / "Beats per minute"）
-	String name = Vortex::_TR(meta->singular);
-	String help = Vortex::_TR(meta->help);
+	String name = _TR(meta->singular);
+	String help = _TR(meta->help);
 
 	style.fontSize = 12;
 	Text::arrange(Text::TC, style, name.str());

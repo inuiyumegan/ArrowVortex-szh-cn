@@ -9,6 +9,8 @@
 #include <Simfile/SegmentList.h>
 #include <Simfile/SegmentGroup.h>
 
+#include <Managers/LocaleMan.h>
+
 namespace Vortex {
 
 // ================================================================================================
@@ -73,7 +75,7 @@ void onDraw() override
 			auto seg = list->begin(), segEnd = list->end();
 
 			Draw::fill({x, y, view.w, 20}, Color32(26));
-			Text::arrange(Text::MC, style, Vortex::_TR(meta->plural).str());
+			Text::arrange(Text::MC, style, _TR(meta->plural).str());
 			Text::draw({x, y, view.w, 20});
 			y += 26;
 

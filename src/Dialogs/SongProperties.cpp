@@ -155,7 +155,7 @@ void DialogSongProperties::myCreateWidgets()
 
 	auto setPreview = myLayout.add<WgButton>();
 	setPreview->onPress.bind(this, &DialogSongProperties::onSetPreview);
-	setPreview->text.set(_TR("Set region"));
+	setPreview->text.set(_TR("Set region").str());
 	setPreview->setTooltip(_TR("Set the music preview to the selected region"));
 
 	auto playPreview = myLayout.add<WgButton>();

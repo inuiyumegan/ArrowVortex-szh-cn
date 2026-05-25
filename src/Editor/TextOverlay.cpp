@@ -16,6 +16,8 @@
 #include <Editor/Shortcuts.h>
 #include <Editor/Action.h>
 
+#include <Managers/LocaleMan.h>
+
 namespace Vortex {
 
 namespace {
@@ -118,17 +120,17 @@ void addShortcut(Action::Type action, const char* name)
 void LoadShortcuts()
 {
 	if(!displayShortcuts_.empty()) return;
-	addShortcutHeader(Vortex::_TR("Basic").str());
-	addShortcut(Vortex::_TR("Play/pause").str(), "Space");
+	addShortcutHeader(_TR("Basic").str());
+	addShortcut(_TR("Play/pause").str(), "Space");
 
-	addShortcut(Action::SNAP_NEXT, Vortex::_TR("Increase snap").str());
-	addShortcut(Action::SNAP_PREVIOUS, Vortex::_TR("Decrease snap").str());
-	addShortcut(Action::CURSOR_UP, Vortex::_TR("Move cursor up").str());
-	addShortcut(Action::CURSOR_DOWN, Vortex::_TR("Move cursor down").str());
-	addShortcut(Action::ZOOM_IN, Vortex::_TR("Zoom in").str());
-	addShortcut(Action::ZOOM_OUT, Vortex::_TR("Zoom out").str());
-	addShortcut(Action::SCALE_INCREASE, Vortex::_TR("Scale Increase").str());
-	addShortcut(Action::SCALE_DECREASE, Vortex::_TR("Scale Decrease").str());
+	addShortcut(Action::SNAP_NEXT, _TR("Increase snap").str());
+	addShortcut(Action::SNAP_PREVIOUS, _TR("Decrease snap").str());
+	addShortcut(Action::CURSOR_UP, _TR("Move cursor up").str());
+	addShortcut(Action::CURSOR_DOWN, _TR("Move cursor down").str());
+	addShortcut(Action::ZOOM_IN, _TR("Zoom in").str());
+	addShortcut(Action::ZOOM_OUT, _TR("Zoom out").str());
+	addShortcut(Action::SCALE_INCREASE, _TR("Scale Increase").str());
+	addShortcut(Action::SCALE_DECREASE, _TR("Scale Decrease").str());
 	
 	addShortcutHeader("File");
 	addShortcut(Action::FILE_OPEN, "Open");
@@ -480,7 +482,7 @@ void drawMessageLog()
 		y += Text::getSize().y + 2;
 	}
 
-	DrawTitleText(Vortex::_TR("MESSAGE LOG").str(), Vortex::_TR("[ESC/F2] close").str(), Vortex::_TR("[Delete] clear").str());
+	DrawTitleText(_TR("MESSAGE LOG").str(), _TR("[ESC/F2] close").str(), _TR("[Delete] clear").str());
 	DrawScrollbar();
 }
 

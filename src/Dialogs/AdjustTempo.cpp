@@ -13,6 +13,8 @@
 #include <Editor/Common.h>
 #include <Editor/Editing.h>
 
+#include <Managers/LocaleMan.h>
+
 namespace Vortex {
 
 enum Actions
@@ -37,7 +39,7 @@ DialogAdjustTempo::~DialogAdjustTempo()
 
 DialogAdjustTempo::DialogAdjustTempo()
 {
-	setTitle(Vortex::_TR("ADJUST TEMPO").str());
+	setTitle(_TR("ADJUST TEMPO").str());
 	myCreateWidgets();
 	onChanges(VCM_ALL_CHANGES);
 	myBeatsToInsert = 1;
@@ -50,15 +52,15 @@ WgSpinner* DialogAdjustTempo::myCreateWidgetRow(StringRef label, int y, double& 
 
 	const char* tooltips[] =
 	{
-		Vortex::_TR("Halve the current BPM").str(),
-		Vortex::_TR("Double the current BPM").str(),
-		Vortex::_TR("Convert the selected region to a stop").str(),
-		Vortex::_TR("Convert the selected region to a stutter gimmick").str(),
+		_TR("Halve the current BPM").str(),
+		_TR("Double the current BPM").str(),
+		_TR("Convert the selected region to a stop").str(),
+		_TR("Convert the selected region to a stutter gimmick").str(),
 	};
 	const char* tooltips2[] =
 	{
-		Vortex::_TR("Stop length at the current beat, in seconds").str(),
-		Vortex::_TR("Music tempo at the current beat, in beats per minute").str()
+		_TR("Stop length at the current beat, in seconds").str(),
+		_TR("Music tempo at the current beat, in beats per minute").str()
 	};
 
 	WgSpinner* spinner = myLayout.add<WgSpinner>(label);
@@ -89,12 +91,12 @@ void DialogAdjustTempo::myCreateWidgets()
 {
 	myLayout.row().col(38).col(116).col(24).col(24).col(24);
 
-	WgSpinner* bpm = myCreateWidgetRow(Vortex::_TR("BPM").str(), 0, myBPM, ACT_BPM_SET);
+	WgSpinner* bpm = myCreateWidgetRow(_TR("BPM").str(), 0, myBPM, ACT_BPM_SET);
 	bpm->setRange(VC_MIN_BPM, VC_MAX_BPM);
 	bpm->setPrecision(3, 6);
 	bpm->setStep(1.0);
 
-	WgSpinner* stop = myCreateWidgetRow(Vortex::_TR("Stop").str(), 28, myStop, ACT_STOP_SET);
+	WgSpinner* stop = myCreateWidgetRow(_TR("Stop").str(), 28, myStop, ACT_STOP_SET);
 	stop->setRange(VC_MIN_STOP, VC_MAX_STOP);
 	stop->setPrecision(3, 6);
 	stop->setStep(0.001);
@@ -104,27 +106,27 @@ void DialogAdjustTempo::myCreateWidgets()
 
 	myLayout.row().col(119).col(119);
 
-	WgSpinner* spinner = myLayout.add<WgSpinner>(Vortex::_TR("Offset in beats").str());
+	WgSpinner* spinner = myLayout.add<WgSpinner>(_TR("Offset in beats").str());
 	spinner->setRange(0.0, 100000.0);
 	spinner->value.bind(&myBeatsToInsert);
 	spinner->setPrecision(3, 6);
-	spinner->setTooltip(Vortex::_TR("Number of beats to insert or remove").str());
+	spinner->setTooltip(_TR("Number of beats to insert or remove").str());
 
-	WgCycleButton* cycle = myLayout.add<WgCycleButton>(Vortex::_TR("Apply offset to").str());
-	cycle->addItem(Vortex::_TR("This chart"));
-	cycle->addItem(Vortex::_TR("All charts"));
+	WgCycleButton* cycle = myLayout.add<WgCycleButton>(_TR("Apply offset to").str());
+	cycle->addItem(_TR("This chart"));
+	cycle->addItem(_TR("All charts"));
 	cycle->value.bind(&myInsertTarget);
 	cycle->setTooltip("Determines which notes and/or tempo changes are targeted");
 	
 	WgButton* insert = myLayout.add<WgButton>();
-	insert->text.set(Vortex::_TR("Insert beats"));
+	insert->text.set(_TR("Insert beats").str());
 	insert->onPress.bind(this, &DialogAdjustTempo::onAction, (int)ACT_INSERT_BEATS);
-	insert->setTooltip(Vortex::_TR("Insert the above number of beats at the cursor position\nAll notes and tempo changes after the cursor will be shifted down").str());
+	insert->setTooltip(_TR("Insert the above number of beats at the cursor position\nAll notes and tempo changes after the cursor will be shifted down").str());
 
 	WgButton* remove = myLayout.add<WgButton>();
-	remove->text.set(Vortex::_TR("Delete beats"));
+	remove->text.set(_TR("Delete beats").str());
 	remove->onPress.bind(this, &DialogAdjustTempo::onAction, (int)ACT_REMOVE_BEATS);
-	remove->setTooltip(Vortex::_TR("Delete the above number of beats at the cursor position\nAll notes and tempo changes after the cursor will be shifted up\nNotes and tempo changes in the deleted region will be removed").str());
+	remove->setTooltip(_TR("Delete the above number of beats at the cursor position\nAll notes and tempo changes after the cursor will be shifted up\nNotes and tempo changes in the deleted region will be removed").str());
 }
 
 void DialogAdjustTempo::onChanges(int changes)
