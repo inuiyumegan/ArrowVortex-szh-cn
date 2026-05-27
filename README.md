@@ -1,82 +1,114 @@
 # ArrowVortex
 
-ArrowVortex is a simfile editor for Windows. It can be used to create or edit stepfiles for various rhythm games, such as StepMania, ITG, osu!, and other games which support DDR-style and/or PIU-style panel layouts.
+> 一款开源、跨平台的 **StepMania / ITG 谱面编辑器**，支持 `.sm` / `.ssc` 格式的谱面制作与编辑。
 
-This is a continuation of the original project by Bram 'Fietsemaker' van de Wetering. He has graciously allowed for the open sourcing of this code so that development can continue.
+[![License](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)]()
 
-See the [About this project](#about-this-project) section below for more information about this repository.
+---
 
-## Features
+## 项目简介
 
-Some of the features that ArrowVortex has to offer include:
+**ArrowVortex** 是由 Bram "Fietsemaker" van de Wetering 最初开发的节奏游戏谱面编辑器，现已开源并以 GPLv3 许可证发布。它专为 **StepMania** 及其衍生节奏游戏（如 ITG、Etterna 等）设计，提供完整的谱面创建、编辑、转换和预览功能。
 
-- Automatic BPM/offset detection
-- Automatic stream generation
-- Automatic difficulty estimation
-- Full editing history with undo/redo
-- Dancing Bot: plays your charts using two virtual feet
-- Powerful editing tools: copy/paste/mirror/expand/compress/etc.
-- Scrollable minimap with chart preview, for easy navigation
-- Supports Ogg Vorbis conversion for MP3/WAV files
-   - requires any version of `oggenc2.exe`, available from [RareWares](https://www.rarewares.org/ogg-oggenc.php)
-- Fully customizable shortcuts
-- Customizable game styles and noteskins
+本仓库为 **ArrowVortex 汉化版**，由 ArrowVortex 汉化组维护，提供完整的简体中文界面支持。
 
-The following features are exclusive to the newer versions of ArrowVortex provided here:
+## 主要功能
 
-- Support for Fake and Lift note types
-  - New "Convert" menu options for converting to Fakes or Lifts
-- Timestamps can be copied and pasted
-- Complete support for custom snaps (copy-pasting, saving, editing)
-- Non-destructive paste option (Shift+Ctrl+V)
-- New visual sync feature, inspired by DDreamStudio (sub-beat placement)
-- Wider range and finer granularity in zooming
-- Fixed Mini options have been replaced with a slider
-- Ability to show Stepmania-style preview during playback
-- Auto-jump to next snap option
+| 模块 | 功能描述 |
+|------|----------|
+| **📝 谱面编辑** | 创建、编辑、删除谱面（Chart），支持多谱面管理 |
+| **🎵 音符类型** | 支持 Steps（单键）、Mines（地雷）、Holds（长键）、Rolls（连键）、Fakes（假键）、Lifts（离键） |
+| **🔄 音符转换** | 音符 ↔ 地雷 / 假键 / 离键；长键 ↔ 连键 / 单键；Routine ↔ ITG Couple |
+| **📐 变换工具** | 镜像翻转（水平/垂直/双向）、扩展、压缩、量化（4分~192分） |
+| **⏱ 节拍编辑** | 完整的 Tempo（BPM）编辑支持 |
+| **🎧 音频支持** | 音频波形预览，BPM 分析辅助工具 |
+| **📊 难度评估** | 内置 Rating 难度估计算法 |
+| **🎮 自动演示** | Dancing Bot 自动演奏演示功能 |
+| **🌐 多语言** | 原生支持英文，汉化版提供完整简体中文界面 |
 
-## Supported formats
+## 目录结构
 
-Audio formats:
-- Ogg Vorbis (.ogg)
-- MPEG-1 Audio Layer III (.mp3)
-- Waveform Audio File Format (.wav)
+```
+ArrowVortex-1.0.1/
+├── src/                    # 源代码
+│   ├── Core/               # 核心框架（渲染、字体、GUI、输入等）
+│   ├── Dialogs/            # 对话框实现
+│   ├── Editor/             # 谱面编辑器核心逻辑
+│   ├── Managers/           # 管理器模块
+│   ├── Simfile/            # Simfile 解析与处理
+│   └── System/             # 系统相关工具
+├── lib/                    # 第三方库
+│   ├── freetype/           # 字体渲染
+│   ├── libmad/             # MP3 解码
+│   ├── libvorbis/          # OGG Vorbis 解码
+│   └── lua/                # Lua 脚本引擎
+├── build/                  # 构建配置
+│   └── VisualStudio/       # Visual Studio 项目文件
+├── ArrowVortex_CN/         # 汉化版运行目录
+│   ├── lang/               # 语言文件 (zh_CN.json)
+│   ├── assets/             # 资源文件
+│   ├── noteskins/          # 音符皮肤
+│   └── settings/           # 配置文件
+├── build_cn.bat            # 一键构建脚本（Windows）
+├── CREDITS                 # 致谢
+└── LICENSE                 # GPLv3 许可证
+```
 
-Simfile formats:
+## 构建指南
 
-- StepMania/ITG (.sm)
-- StepMania 5 (.ssc)
-- Dance With Intensity (.dwi)
-- osu! (.osu)
+### Windows（推荐）
 
-Game styles:
+1. 安装 **Visual Studio 2022 Community**，勾选「使用 C++ 的桌面开发」工作负载
+2. 确保安装了 **Windows 10 SDK**
+3. 双击运行 `build_cn.bat` 一键构建
+4. 构建产物输出至 `bin/` 目录
 
-- Dance Single
-- Dance Double
-- Dance Couple
-- Dance Routine
-- Dance Solo
-- Pump Single
-- Pump Halfdouble
-- Pump Double
-- Pump Couple
+### 手动构建
 
-## About this project
+```powershell
+# 使用 MSBuild
+msbuild build\VisualStudio\ArrowVortex.sln /p:Configuration=Release /p:Platform=x64
+```
 
-Unfortunately, the source code for the 2017-02-25 release of ArrowVortex has been lost to time. The only surviving archive of source code was a development snapshot from 2016. A small group of volunteer developers put a lot of time and effort into restoring the full functionality of the 2017 release of ArrowVortex.
+## 汉化版使用
 
-Some new features were introduced as well when preparing this release, and some bugs present in the 2017 version have been fixed as well.
+1. 构建完成后，将 `bin/` 目录下的可执行文件放入 `ArrowVortex_CN/` 目录
+2. 确保 `lang/zh_CN.json` 语言文件存在
+3. 启动后在设置中选择 `简体中文` 语言
 
-## Building ArrowVortex
+## 第三方组件
 
-In order to compile ArrowVortex on your own PC, Visual Studio is required. It is recommended to use Visual Studio 2022 with the "Desktop development for C++" components installed.
+| 组件 | 用途 | 许可证 |
+|------|------|--------|
+| FreeType | 字体渲染 | FTL / GPLv2 |
+| libogg / libvorbis | OGG 音频解码 | BSD-style |
+| libmad | MP3 音频解码 | GPLv2+ |
+| Lua | 脚本引擎 | MIT |
+| aubio | 音频分析 | GPLv3 |
 
-Simply open `build/VisualStudio/ArrowVortex.sln` in Visual Studio, and build the project.
+## 致谢
 
-## License
+- **Bram "Fietsemaker" van de Wetering** — 原作者
+- [uvcat7](https://github.com/uvcat7) — 开源贡献
+- [sukibaby](https://github.com/sukibaby) — 开源贡献
+- [Psycast](https://github.com/Psycast) — 开源贡献
+- [DeltaEpsilon7787](https://github.com/DeltaEpsilon7787) — 开源贡献
+- [DolphinChips](https://github.com/DolphinChips) — 开源贡献
+- [StarbotArc](https://github.com/StarbotArc) — 开源贡献
+- **ArrowVortex 汉化组** — 简体中文汉化
 
-ArrowVortex is provided under the GPLv3 license, or at your option, any later version.
+## 许可证
 
-The original author provided the volunteer developers with an archive of the source code, which did not include a formal license. The original author explicitly requested that any new code developed by the volunteer developers be released under a license which prevents the code from being used in closed source software. The volunteer developers, as a separate party, have acted in good faith to comply with this request and bear no liability for the licensing status of the original code as provided to them.
+本项目基于 **GPLv3**（或更高版本）许可证开源。详见 [LICENSE](LICENSE) 文件。
 
-For licensing info on the dependent projects and a list of contributors, see the CREDITS file.
+> Copyright © ArrowVortex Contributors.  
+> 本软件按"原样"提供，不提供任何形式的明示或暗示担保。
+
+---
+
+上面是deepseek v4总结的，我懒得写了（
+
+原项目https://github.com/uvcat7/ArrowVortex
+
+因为每次翻译都需要硬编码，我懒，故不保证本项目更新速度以及会不会更新（
