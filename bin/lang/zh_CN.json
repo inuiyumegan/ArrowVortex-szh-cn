@@ -429,7 +429,7 @@
     "Beat note type": "拍子类型",
     "Hold combo ticks per beat": "长键每拍 Combo Tick 数",
     "Combo hit multiplier": "连击命中倍率",
-    "Combo miss multiplier": "连击错击倍率",
+    "Combo miss multiplier": "连击miss倍率",
     "Stretch ratio": "拉伸比例",
     "Delay time": "延迟时间",
     "Delay unit (beats/time)": "延迟单位（拍/时间）",
