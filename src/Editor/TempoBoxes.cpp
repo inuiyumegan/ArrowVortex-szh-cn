@@ -416,7 +416,7 @@ void drawBoxHelp(const TempoBox& box)
 
 	TextStyle style;
 
-	// 翻译元信息文本（例如 "BPM change" / "Beats per minute"）
+	// Translate metadata text (e.g. "BPM change" / "Beats per minute")
 	String name = _TR(meta->singular);
 	String help = _TR(meta->help);
 
