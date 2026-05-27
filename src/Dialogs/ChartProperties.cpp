@@ -36,11 +36,6 @@ enum NoteItemType
 	NIT_WARPS,
 };
 
-static const char* noteItemLabels[] =
-{
-	"steps", "jumps", "mines", "holds", "rolls", "warps"
-};
-
 DialogChartProperties::~DialogChartProperties()
 {
 }
@@ -50,7 +45,7 @@ DialogChartProperties::DialogChartProperties()
 	, myRating(1)
 	, myStyle(0)
 {
-	setTitle("CHART PROPERTIES");
+	setTitle(_TR("CHART PROPERTIES").str());
 
 	myCreateChartProperties();
 	myCreateNoteInfo();
@@ -101,14 +96,14 @@ void DialogChartProperties::myCreateChartProperties()
 {
 	myLayout.row().col(76).col(260);
 
-	myStyleList = myLayout.add<WgDroplist>("Chart type");
+	myStyleList = myLayout.add<WgDroplist>(_TR("Chart type").str());
 	myStyleList->value.bind(&myStyle);
 	myStyleList->setEnabled(false);
 	myStyleList->setTooltip(_TR("Game style of the chart").str());
 
 	myLayout.row().col(76).col(148).col(80).col(24);
 
-	auto diff = myLayout.add<WgDroplist>("Difficulty");
+	auto diff = myLayout.add<WgDroplist>(_TR("Difficulty").str());
 	diff->value.bind(&myDifficulty);
 	diff->onChange.bind(this, &DCP::mySetDifficulty);
 	for(int i = 0; i < NUM_DIFFICULTIES; ++i)
@@ -130,7 +125,7 @@ void DialogChartProperties::myCreateChartProperties()
 
 	myLayout.row().col(76).col(260);
 
-	WgLineEdit* artist = myLayout.add<WgLineEdit>("Step artist");
+	WgLineEdit* artist = myLayout.add<WgLineEdit>(_TR("Step artist").str());
 	artist->text.bind(&myStepArtist);
 	artist->onChange.bind(this, &DCP::mySetStepArtist);
 	artist->setTooltip(_TR("Author of the chart").str());
@@ -192,24 +187,29 @@ void DialogChartProperties::myCreateNoteInfo()
 	copy->onPress.bind(this, &DCP::myCopyNoteInfo);
 
 	WgLabel* info = myLayout.add<WgLabel>();
-	info->text.set("Note information");
+	info->text.set(_TR("Note information").str());
 
-	const char* tooltips[] =
+	String labelTexts[] =
 	{
-		_TR("Select all steps").str(),
-		_TR("Select all jump notes").str(),
-		_TR("Select all mines").str(),
-		_TR("Select all hold notes").str(),
-		_TR("Select all roll notes").str(),
-		_TR("Select all warped notes").str(),
+		_TR("steps"), _TR("jumps"), _TR("mines"),
+		_TR("holds"), _TR("rolls"), _TR("warps")
+	};
+	String tooltips[] =
+	{
+		_TR("Select all steps"),
+		_TR("Select all jump notes"),
+		_TR("Select all mines"),
+		_TR("Select all hold notes"),
+		_TR("Select all roll notes"),
+		_TR("Select all warped notes"),
 	};
 
 	myLayout.row().col(53).col(53).col(53).col(53).col(53).col(53);
 	for(int i = 0; i < 6; ++i)
 	{
-		WgButton* b = myLayout.add<WgButton>(noteItemLabels[i]);
+		WgButton* b = myLayout.add<WgButton>(labelTexts[i]);
 		b->onPress.bind(this, &DCP::mySelectNotes, i);
-		b->setTooltip(tooltips[i]);
+		b->setTooltip(tooltips[i].str());
 		myNoteInfo[i] = b;
 	}
 
@@ -239,7 +239,7 @@ void DialogChartProperties::myUpdateNoteInfo()
 		density = (double)count[0] / max(1.0, (gNotes->end() - 1)->time - gNotes->begin()->time);
 	}
 
-	myNoteDensity->text.set(Str::fmt("Note density: %1 NPS").arg(density, 1, 1).str);
+	myNoteDensity->text.set(Str::fmt(_TR("Note density: %1 NPS").str()).arg(density, 1, 1).str);
 }
 
 void DialogChartProperties::myCopyNoteInfo()
@@ -247,21 +247,21 @@ void DialogChartProperties::myCopyNoteInfo()
 	String out;
 	if(gChart->isOpen())
 	{
-		StringifyNoteInfo(out, "step", gNotes->getNumSteps());
-		StringifyNoteInfo(out, "jump", gNotes->getNumJumps());
-		StringifyNoteInfo(out, "mine", gNotes->getNumMines());
-		StringifyNoteInfo(out, "hold", gNotes->getNumHolds());
-		StringifyNoteInfo(out, "roll", gNotes->getNumRolls());
-		StringifyNoteInfo(out, "warp", gNotes->getNumWarps());
+		StringifyNoteInfo(out, _TR("step").str(), gNotes->getNumSteps());
+		StringifyNoteInfo(out, _TR("jump").str(), gNotes->getNumJumps());
+		StringifyNoteInfo(out, _TR("mine").str(), gNotes->getNumMines());
+		StringifyNoteInfo(out, _TR("hold").str(), gNotes->getNumHolds());
+		StringifyNoteInfo(out, _TR("roll").str(), gNotes->getNumRolls());
+		StringifyNoteInfo(out, _TR("warp").str(), gNotes->getNumWarps());
 	}
 	if(out.empty())
 	{
-		HudInfo("%s", "There is no note info to copy...");
+		HudInfo("%s", _TR("There is no note info to copy...").str());
 	}
 	else
 	{
 		gSystem->setClipboardText(out.str());
-		HudInfo("%s%s", "Note info copied to clipboard: ", out.str());
+		HudInfo("%s%s", _TR("Note info copied to clipboard: ").str(), out.str());
 	}
 }
 
@@ -341,7 +341,7 @@ void DialogChartProperties::BreakdownWidget::updateBreakdown(WgLabel* measureCou
 		delete myButtons.back();
 		myButtons.pop_back();
 	}
-	measureCount->text.set(Str::fmt("Stream measures: %1").arg(measures).str);
+	measureCount->text.set(Str::fmt(_TR("Stream measures: %1").str()).arg(measures).str);
 }
 
 void DialogChartProperties::BreakdownWidget::selectStream(vec2i rows)
@@ -409,7 +409,7 @@ void DialogChartProperties::myCreateBreakdown()
 	copy->onPress.bind(this, &DCP::myCopyBreakdown);
 
 	WgLabel* info = myLayout.add<WgLabel>();
-	info->text.set("Stream breakdown");
+	info->text.set(_TR("Stream breakdown").str());
 
 	myLayout.row().col(340);
 	myBreakdown = new BreakdownWidget(getGui());
@@ -426,7 +426,7 @@ void DialogChartProperties::myCopyBreakdown()
 	auto breakdown = gChart->getStreamBreakdown();
 	if(breakdown.empty())
 	{
-		HudInfo("%s", "There is no breakdown to copy...");
+		HudInfo("%s", _TR("There is no breakdown to copy...").str());
 	}
 	else
 	{
@@ -438,7 +438,7 @@ void DialogChartProperties::myCopyBreakdown()
 		}
 		Str::pop_back(out);
 		gSystem->setClipboardText(out);
-		HudInfo("%s%s", "Stream breakdown copied to clipboard: ", out.str());
+		HudInfo("%s%s", _TR("Stream breakdown copied to clipboard: ").str(), out.str());
 	}
 }
 

@@ -203,6 +203,25 @@ void init()
 	text.shadowColor = RGBAtoColor32(0, 0, 0, 128);
 	text.makeDefault();
 
+	// Load a CJK fallback font for Chinese/Japanese/Korean characters
+	// that may not be covered by the primary font.
+	// Try bundled fonts first, then system fonts.
+	const char* cjkFallbackPaths[] = {
+		"assets/NotoSansSC-VF.ttf",
+		"assets/NotoSansCJK-Regular.ttc",
+		"C:/Windows/Fonts/NotoSansSC-VF.ttf",
+		"C:/Windows/Fonts/msyh.ttc",
+		nullptr
+	};
+	for (int i = 0; cjkFallbackPaths[i]; ++i) {
+		Font cjkFont(cjkFallbackPaths[i], Text::HINT_AUTO);
+		if (cjkFont.data()) {
+			cjkFont.cache();
+			Debug::log("Editor :: CJK fallback font loaded: %s\n", cjkFallbackPaths[i]);
+			break;
+		}
+	}
+
 	// Create the text overlay, so other editor components can show HUD messages.
 	TextOverlay::create();
 

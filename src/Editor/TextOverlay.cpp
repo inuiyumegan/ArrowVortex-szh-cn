@@ -132,57 +132,57 @@ void LoadShortcuts()
 	addShortcut(Action::SCALE_INCREASE, _TR("Scale Increase").str());
 	addShortcut(Action::SCALE_DECREASE, _TR("Scale Decrease").str());
 	
-	addShortcutHeader("File");
-	addShortcut(Action::FILE_OPEN, "Open");
-	addShortcut(Action::FILE_SAVE, "Save");
-	addShortcut(Action::FILE_SAVE_AS, "Save as");
-	addShortcut(Action::FILE_CLOSE, "Close");
+	addShortcutHeader(_TR("File").str());
+	addShortcut(Action::FILE_OPEN, _TR("Open").str());
+	addShortcut(Action::FILE_SAVE, _TR("Save").str());
+	addShortcut(Action::FILE_SAVE_AS, _TR("Save as").str());
+	addShortcut(Action::FILE_CLOSE, _TR("Close").str());
 
-	addShortcutHeader("Dialogs");
-	addShortcut(Action::OPEN_DIALOG_SONG_PROPERTIES, "Simfile properties");
-	addShortcut(Action::OPEN_DIALOG_CHART_PROPERTIES, "Chart properties");
-	addShortcut(Action::OPEN_DIALOG_CHART_LIST, "Chart list");
-	addShortcut(Action::OPEN_DIALOG_NEW_CHART, "New chart");
-	addShortcut(Action::OPEN_DIALOG_ADJUST_SYNC, "Adjust sync");
-	addShortcut(Action::OPEN_DIALOG_ADJUST_TEMPO, "Adjust tempo");
-	addShortcut(Action::OPEN_DIALOG_DANCING_BOT, "Dancing bot");
-	addShortcut(Action::OPEN_DIALOG_GENERATE_NOTES, "Generate notes");
-	addShortcut(Action::OPEN_DIALOG_TEMPO_BREAKDOWN, "Tempo breakdown");
+	addShortcutHeader(_TR("Dialogs").str());
+	addShortcut(Action::OPEN_DIALOG_SONG_PROPERTIES, _TR("Simfile properties").str());
+	addShortcut(Action::OPEN_DIALOG_CHART_PROPERTIES, _TR("Chart properties").str());
+	addShortcut(Action::OPEN_DIALOG_CHART_LIST, _TR("Chart list").str());
+	addShortcut(Action::OPEN_DIALOG_NEW_CHART, _TR("New chart").str());
+	addShortcut(Action::OPEN_DIALOG_ADJUST_SYNC, _TR("Adjust sync").str());
+	addShortcut(Action::OPEN_DIALOG_ADJUST_TEMPO, _TR("Adjust tempo").str());
+	addShortcut(Action::OPEN_DIALOG_DANCING_BOT, _TR("Dancing bot").str());
+	addShortcut(Action::OPEN_DIALOG_GENERATE_NOTES, _TR("Generate notes").str());
+	addShortcut(Action::OPEN_DIALOG_TEMPO_BREAKDOWN, _TR("Tempo breakdown").str());
 
-	addShortcutHeader("Selection");
-	addShortcut(Action::SELECT_REGION, "Select region");
-	addShortcut(Action::SELECT_REGION_BEFORE_CURSOR, "Select region before cursor");
-	addShortcut(Action::SELECT_REGION_AFTER_CURSOR, "Select region after cursor");
+	addShortcutHeader(_TR("Selection").str());
+	addShortcut(Action::SELECT_REGION, _TR("Select region").str());
+	addShortcut(Action::SELECT_REGION_BEFORE_CURSOR, _TR("Select region before cursor").str());
+	addShortcut(Action::SELECT_REGION_AFTER_CURSOR, _TR("Select region after cursor").str());
 
-	addShortcutHeader("Visual sync");
-	addShortcut(Action::SET_VISUAL_SYNC_CURSOR_ANCHOR, "Set to target nearby row of snap");
-	addShortcut(Action::SET_VISUAL_SYNC_RECEPTOR_ANCHOR, "Set to target receptor's row");
-	addShortcut(Action::SHIFT_ROW_NONDESTRUCTIVE, "Shift to cursor, non-destructive");
-	addShortcut(Action::SHIFT_ROW_DESTRUCTIVE, "Shift to cursor, destructive");
-	addShortcut(Action::INJECT_BOUNDING_BPM_CHANGE, "Add bounding BPM change");
+	addShortcutHeader(_TR("Visual sync").str());
+	addShortcut(Action::SET_VISUAL_SYNC_CURSOR_ANCHOR, _TR("Set to target nearby row of snap").str());
+	addShortcut(Action::SET_VISUAL_SYNC_RECEPTOR_ANCHOR, _TR("Set to target receptor's row").str());
+	addShortcut(Action::SHIFT_ROW_NONDESTRUCTIVE, _TR("Shift to cursor, non-destructive").str());
+	addShortcut(Action::SHIFT_ROW_DESTRUCTIVE, _TR("Shift to cursor, destructive").str());
+	addShortcut(Action::INJECT_BOUNDING_BPM_CHANGE, _TR("Add bounding BPM change").str());
 
-	addShortcutHeader("Chart");
-	addShortcut(Action::CHART_PREVIOUS, "Previous chart");
-	addShortcut(Action::CHART_NEXT, "Next chart");
-	addShortcut(Action::CHART_DELETE, "Delete chart");
+	addShortcutHeader(_TR("Chart").str());
+	addShortcut(Action::CHART_PREVIOUS, _TR("Previous chart").str());
+	addShortcut(Action::CHART_NEXT, _TR("Next chart").str());
+	addShortcut(Action::CHART_DELETE, _TR("Delete chart").str());
 
-	addShortcutHeader("Music");
-	addShortcut(Action::VOLUME_INCREASE, "Increase volume");
-	addShortcut(Action::VOLUME_DECREASE, "Decrease volume");
-	addShortcut(Action::SPEED_INCREASE, "Increase speed");
-	addShortcut(Action::SPEED_DECREASE, "Decrease speed");
+	addShortcutHeader(_TR("Music").str());
+	addShortcut(Action::VOLUME_INCREASE, _TR("Increase volume").str());
+	addShortcut(Action::VOLUME_DECREASE, _TR("Decrease volume").str());
+	addShortcut(Action::SPEED_INCREASE, _TR("Increase speed").str());
+	addShortcut(Action::SPEED_DECREASE, _TR("Decrease speed").str());
 
-	addShortcutHeader("Navigation");
-	addShortcut(Action::CURSOR_PREVIOUS_BEAT, "Previous beat");
-	addShortcut(Action::CURSOR_NEXT_BEAT, "Next beat");
-	addShortcut(Action::CURSOR_PREVIOUS_MEASURE, "Previous measure");
-	addShortcut(Action::CURSOR_NEXT_MEASURE, "Next measure");
-	addShortcut(Action::CURSOR_STREAM_START, "Start of stream");
-	addShortcut(Action::CURSOR_STREAM_END, "End of stream");
-	addShortcut(Action::CURSOR_SELECTION_START, "Start of selection");
-	addShortcut(Action::CURSOR_SELECTION_END, "End of selection");
-	addShortcut(Action::CURSOR_CHART_START, "Start of chart");
-	addShortcut(Action::CURSOR_CHART_END, "End of chart");	
+	addShortcutHeader(_TR("Navigation").str());
+	addShortcut(Action::CURSOR_PREVIOUS_BEAT, _TR("Previous beat").str());
+	addShortcut(Action::CURSOR_NEXT_BEAT, _TR("Next beat").str());
+	addShortcut(Action::CURSOR_PREVIOUS_MEASURE, _TR("Previous measure").str());
+	addShortcut(Action::CURSOR_NEXT_MEASURE, _TR("Next measure").str());
+	addShortcut(Action::CURSOR_STREAM_START, _TR("Start of stream").str());
+	addShortcut(Action::CURSOR_STREAM_END, _TR("End of stream").str());
+	addShortcut(Action::CURSOR_SELECTION_START, _TR("Start of selection").str());
+	addShortcut(Action::CURSOR_SELECTION_END, _TR("End of selection").str());
+	addShortcut(Action::CURSOR_CHART_START, _TR("Start of chart").str());
+	addShortcut(Action::CURSOR_CHART_END, _TR("End of chart").str());	
 }
 
 // ================================================================================================

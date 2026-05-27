@@ -141,7 +141,7 @@ static String ApplyDifficulty(ReadStream& in, History::Bindings bound, bool undo
 		msg += " :: ";
 		msg += (undo ? "reverted" : "changed");
 		msg += " difficulty to ";
-		msg += GetDifficultyName(newDiff);
+		msg += GetDifficultyName(newDiff).str();
 
 		gSimfile->openChart(bound.chart);
 		bound.chart->difficulty = newDiff;

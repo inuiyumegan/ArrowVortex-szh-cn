@@ -5,6 +5,8 @@
 
 #include <Editor/View.h>
 
+#include <Managers/LocaleMan.h>
+
 namespace Vortex {
 
 	DialogCustomSnap::~DialogCustomSnap()
@@ -15,7 +17,7 @@ namespace Vortex {
 	{
 		myCustomSnap = gView->getCustomSnap();
 
-		setTitle("CUSTOM SNAP");
+		setTitle(_TR("CUSTOM SNAP").str());
 		myCreateWidgets();
 	}
 
@@ -23,7 +25,7 @@ namespace Vortex {
 	{
 		myLayout.row().col(80).col(80);
 
-		WgSpinner* scol = myLayout.add<WgSpinner>("Snapping");
+		WgSpinner* scol = myLayout.add<WgSpinner>(_TR("Snapping").str());
 		scol->value.bind(&myCustomSnap);
 		scol->onChange.bind(this, &DialogCustomSnap::onChange);
 		scol->setRange(4.0, 192.0);

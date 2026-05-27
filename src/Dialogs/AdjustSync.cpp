@@ -266,7 +266,7 @@ void DialogAdjustSync::myResetBPMDetection()
 		myTempoDetector = nullptr;
 	}
 	myDetectionResults.clear();
-	myBPMLabel->text.set("Automatic BPM Detection");
+	myBPMLabel->text.set(_TR("Automatic BPM Detection").str());
 	myApplyBPM->setEnabled(false);
 	myBPMList->clearItems();
 	mySelectedResult = 0;

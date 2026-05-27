@@ -14,6 +14,8 @@
 #include <Managers/StyleMan.h>
 #include <Managers/SimfileMan.h>
 
+#include <Managers/LocaleMan.h>
+
 namespace Vortex {
 
 static const char* SpacingStrings[] =
@@ -37,7 +39,7 @@ DialogGenerateNotes::DialogGenerateNotes()
 	: footSelectionIndex_(0)
 	, spacingValue_(0)
 {
-	setTitle("GENERATE NOTES");
+	setTitle(_TR("GENERATE NOTES").str());
 	myCreateWidgets();
 }
 
@@ -47,7 +49,7 @@ void DialogGenerateNotes::myCreateWidgets()
 	myLayout.addBlank();
 
 	myLayout.row().col(60).col(116);
-	spacingDroplist_ = myLayout.add<WgDroplist>("Spacing");
+	spacingDroplist_ = myLayout.add<WgDroplist>(_TR("Spacing").str());
 	spacingDroplist_->value.bind(&spacingValue_);
 	for(int i = 0; i < 6; ++i)
 	{
@@ -56,33 +58,33 @@ void DialogGenerateNotes::myCreateWidgets()
 
 	myLayout.row().col(180);
 	WgLabel* repetitions = myLayout.add<WgLabel>();
-	repetitions->text.set("Maximum note repetition");
+	repetitions->text.set(_TR("Maximum note repetition").str());
 
 	myLayout.row().col(116).col(60);
 
-	WgSpinner* scol = myLayout.add<WgSpinner>("Single column");
+	WgSpinner* scol = myLayout.add<WgSpinner>(_TR("Single column").str());
 	scol->value.bind(&streamGenerator_.maxColRep);
 	scol->setRange(1.0, 16.0);
 	scol->setPrecision(0, 0);
 
-	WgSpinner* pcol = myLayout.add<WgSpinner>("Paired columns");
+	WgSpinner* pcol = myLayout.add<WgSpinner>(_TR("Paired columns").str());
 	pcol->value.bind(&streamGenerator_.maxBoxRep);
 	pcol->setRange(1.0, 16.0);
 	pcol->setPrecision(0, 0);
 
 	myLayout.row().col(60).col(116);
 
-	WgSlider* sdiff = myLayout.add<WgSlider>("Difficulty");
+	WgSlider* sdiff = myLayout.add<WgSlider>(_TR("Difficulty").str());
 	sdiff->value.bind(&streamGenerator_.patternDifficulty);
 
 	myLayout.row().col(180);
 
 	WgCheckbox* cfoot = myLayout.add<WgCheckbox>();
-	cfoot->text.set("Start with right foot");
+	cfoot->text.set(_TR("Start with right foot").str());
 	cfoot->value.bind(&streamGenerator_.startWithRight);
 
 	WgButton* generate = myLayout.add<WgButton>();
-	generate->text.set("Generate notes");
+	generate->text.set(_TR("Generate notes").str());
 	generate->onPress.bind(this, &DialogGenerateNotes::myGenerateNotes);
 
 	onChanges(VCM_ALL_CHANGES);

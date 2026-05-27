@@ -340,7 +340,7 @@ DialogDancingBot::~DialogDancingBot()
 
 DialogDancingBot::DialogDancingBot()
 {
-	setTitle("DANCING BOT");
+	setTitle(_TR("DANCING BOT").str());
 
 	BatchSprite::init(myPadSpr, 6, 4, 2, 64, 64);
 	BatchSprite::init(myFeetSpr, 2, 2, 1, 96, 96);
@@ -360,13 +360,13 @@ void DialogDancingBot::myCreateWidgets()
 	myLayout.row().col(104).col(100);
 
 	WgCheckbox* footswitch = myLayout.add<WgCheckbox>();
-	footswitch->text.set("Footswitch");
+	footswitch->text.set(_TR("Footswitch").str());
 	footswitch->value.bind(&myDoFootswitches);
 	footswitch->onChange.bind(this, &DialogDancingBot::onDoFootswitchesChanged);
 	footswitch->setTooltip(_TR("If enabled, the dancing bot will attempt footswitches").str());
 
 	WgCheckbox* crossover = myLayout.add<WgCheckbox>();
-	crossover->text.set("Crossover");
+	crossover->text.set(_TR("Crossover").str());
 	crossover->value.bind(&myDoCrossovers);
 	crossover->onChange.bind(this, &DialogDancingBot::onDoCrossoversChanged);
 	crossover->setTooltip(_TR("If enabled, the dancing bot will attempt crossovers").str());
@@ -459,7 +459,7 @@ void DialogDancingBot::onDraw()
 	}
 	else // If there is no pad layout information.
 	{
-		Text::arrange(Text::MC, 12, "- nothing to dance -");
+		Text::arrange(Text::MC, 12, _TR("- nothing to dance -").str());
 		Text::draw(getInnerRect());
 	}
 	Renderer::popScissorRect();

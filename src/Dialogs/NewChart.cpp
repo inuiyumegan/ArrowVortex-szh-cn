@@ -35,7 +35,7 @@ void DialogNewChart::myCreateWidgets()
 {
 	myLayout.row().col(76).col(232);
 
-	myStyleList = myLayout.add<WgDroplist>("Chart type");
+	WgDroplist* myStyleList = myLayout.add<WgDroplist>(_TR("Chart type").str());
 	myStyleList->value.bind(&myStyle);
 	myStyleList->setTooltip(_TR("Game style of the chart").str());
 	for(int i = 0; i < gStyle->getNumStyles(); ++i)
@@ -45,7 +45,7 @@ void DialogNewChart::myCreateWidgets()
 
 	myLayout.row().col(76).col(148).col(80);
 
-	WgDroplist* diffs = myLayout.add<WgDroplist>("Difficulty");
+	WgDroplist* diffs = myLayout.add<WgDroplist>(_TR("Difficulty").str());
 	diffs->value.bind(&myDifficulty);
 	diffs->setTooltip(_TR("Difficulty type of the chart").str());
 	for(int i = 0; i < NUM_DIFFICULTIES; ++i)
@@ -60,7 +60,7 @@ void DialogNewChart::myCreateWidgets()
 
 	myLayout.row().col(76).col(232);
 
-	WgLineEdit* artist = myLayout.add<WgLineEdit>("Step artist");
+	WgLineEdit* artist = myLayout.add<WgLineEdit>(_TR("Step artist").str());
 	artist->setTooltip(_TR("Author of the chart").str());
 	artist->text.bind(&myStepArtist);
 
@@ -71,7 +71,7 @@ void DialogNewChart::myCreateWidgets()
 	myLayout.add<GuiWidget>();
 	
 	WgButton* accept = myLayout.add<WgButton>();
-	accept->text.set("Create");
+	accept->text.set(_TR("Create").str());
 	accept->onPress.bind(this, &DialogNewChart::myCreateChart);
 	accept->setTooltip(_TR("Create a chart with the current settings").str());
 }

@@ -6,6 +6,8 @@
 #include <Simfile/Simfile.h>
 #include <Simfile/Notes.h>
 
+#include <Managers/LocaleMan.h>
+
 namespace Vortex {
 
 Chart::Chart()
@@ -85,9 +87,9 @@ static const char* DifficultyNames[NUM_DIFFICULTIES] =
 	"Edit"
 };
 
-const char* GetDifficultyName(Difficulty difficulty)
+String GetDifficultyName(Difficulty difficulty)
 {
-	return DifficultyNames[difficulty];
+	return _TR(DifficultyNames[difficulty]);
 }
 
 }; // namespace Vortex

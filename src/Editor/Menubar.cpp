@@ -206,22 +206,22 @@ void init(Item* menu)
 
 	// Notes > Convert menu.
 	Item* hNoteConvert = newMenu();
-	add(hNoteConvert, CHANGE_NOTES_TO_MINES, L"Notes \x2192 Mines");
-	add(hNoteConvert, CHANGE_NOTES_TO_FAKES, L"Notes \x2192 Fakes");
-	add(hNoteConvert, CHANGE_NOTES_TO_LIFTS, L"Notes \x2192 Lifts");
+	add(hNoteConvert, CHANGE_NOTES_TO_MINES, _TR("Notes -> Mines"));
+	add(hNoteConvert, CHANGE_NOTES_TO_FAKES, _TR("Notes -> Fakes"));
+	add(hNoteConvert, CHANGE_NOTES_TO_LIFTS, _TR("Notes -> Lifts"));
 	sep(hNoteConvert);
-	add(hNoteConvert, CHANGE_MINES_TO_NOTES, L"Mines \x2192 Notes");
-	add(hNoteConvert, CHANGE_MINES_TO_FAKES, L"Mines \x2192 Fakes");
-	add(hNoteConvert, CHANGE_MINES_TO_LIFTS, L"Mines \x2192 Lifts");
+	add(hNoteConvert, CHANGE_MINES_TO_NOTES, _TR("Mines -> Notes"));
+	add(hNoteConvert, CHANGE_MINES_TO_FAKES, _TR("Mines -> Fakes"));
+	add(hNoteConvert, CHANGE_MINES_TO_LIFTS, _TR("Mines -> Lifts"));
 	sep(hNoteConvert);
-	add(hNoteConvert, CHANGE_FAKES_TO_NOTES, L"Fakes \x2192 Notes");
-	add(hNoteConvert, CHANGE_LIFTS_TO_NOTES, L"Lifts \x2192 Notes");
+	add(hNoteConvert, CHANGE_FAKES_TO_NOTES, _TR("Fakes -> Notes"));
+	add(hNoteConvert, CHANGE_LIFTS_TO_NOTES, _TR("Lifts -> Notes"));
 	sep(hNoteConvert);
-	add(hNoteConvert, CHANGE_BETWEEN_HOLDS_AND_ROLLS, L"Holds \x2194 Rolls");
-	add(hNoteConvert, CHANGE_HOLDS_TO_STEPS, L"Holds \x2192 Steps");
-	add(hNoteConvert, CHANGE_HOLDS_TO_MINES, L"Holds \x2192 Mines");
+	add(hNoteConvert, CHANGE_BETWEEN_HOLDS_AND_ROLLS, _TR("Holds <-> Rolls"));
+	add(hNoteConvert, CHANGE_HOLDS_TO_STEPS, _TR("Holds -> Steps"));
+	add(hNoteConvert, CHANGE_HOLDS_TO_MINES, _TR("Holds -> Mines"));
 	sep(hNoteConvert);
-	add(hNoteConvert, CHANGE_BETWEEN_PLAYER_NUMBERS, L"Switch Player");
+	add(hNoteConvert, CHANGE_BETWEEN_PLAYER_NUMBERS, _TR("Switch Player"));
 
 	// Notes > Mirror menu.
 	Item* hNoteMirror = newMenu();
@@ -517,7 +517,7 @@ void registerUpdateFunctions()
 		{
 			if(gNoteskin->isSupported(type))
 			{
-				hSkins->addItem(SET_NOTESKIN_BEGIN + type, gNoteskin->getName(type));
+				hSkins->addItem(SET_NOTESKIN_BEGIN + type, _TR(gNoteskin->getName(type)));
 				if(type == activeType)
 				{
 					hSkins->setChecked((Action::Type)(SET_NOTESKIN_BEGIN + type), true);

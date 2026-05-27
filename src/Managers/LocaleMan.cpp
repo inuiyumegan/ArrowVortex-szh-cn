@@ -10,15 +10,15 @@ Language LocaleMan::sLanguage = Language::EN_US;
 Vector<LocaleMan::Entry> LocaleMan::sEntries;
 
 // ================================================================================================
-// 简单的 JSON 字符串解析器
-// 从 UTF-8 JSON 中提取双引号字符串，支持 \n \t \\ \" 转义
+// Simple JSON string parser
+// Extracts double-quoted strings from UTF-8 JSON, supports \n \t \\ \" escapes
 
 static String parseJsonString(const char*& p)
 {
-	// 跳过直到找到引号
+	// Skip until we find a quote
 	while (*p && *p != '"') ++p;
 	if (!*p) return String();
-	++p; // 跳过开始的引号
+	++p; // Skip opening quote
 
 	String result;
 	while (*p && *p != '"')
@@ -36,7 +36,7 @@ static String parseJsonString(const char*& p)
 			case '"':  Str::append(result, '"'); break;
 			case '/':  Str::append(result, '/'); break;
 			default:
-				// 未知转义，保留原字符
+				// Unknown escape, keep the original characters
 				Str::append(result, '\\');
 				Str::append(result, *p);
 				break;
@@ -44,17 +44,17 @@ static String parseJsonString(const char*& p)
 		}
 		else
 		{
-			// 直接追加 UTF-8 字节（支持中文等多字节字符）
+			// Directly append UTF-8 bytes (supports multi-byte characters like CJK)
 			Str::append(result, *p);
 		}
 		++p;
 	}
-	if (*p == '"') ++p; // 跳过结尾引号
+	if (*p == '"') ++p; // Skip closing quote
 	return result;
 }
 
 // ================================================================================================
-// 创建和销毁
+// Create and destroy
 
 void LocaleMan::create()
 {
@@ -69,7 +69,7 @@ void LocaleMan::destroy()
 }
 
 // ================================================================================================
-// 加载翻译文件
+// Load translation file
 
 bool LocaleMan::loadLanguageFile(StringRef filepath)
 {
@@ -89,26 +89,26 @@ bool LocaleMan::loadLanguageFile(StringRef filepath)
 
 	while (*p)
 	{
-		// 跳过空白字符
+		// Skip whitespace characters
 		while (*p && (*p == ' ' || *p == '\r' || *p == '\n' || *p == '\t' || *p == ',')) ++p;
 		if (!*p) break;
 
-		// 跳过注释 (// ... 直到行尾)
+		// Skip comments (// ... to end of line)
 		if (*p == '/' && *(p + 1) == '/')
 		{
 			while (*p && *p != '\n') ++p;
 			continue;
 		}
 
-		// 遇到 } 或 ] 表示结束
+		// } or ] means end of block
 		if (*p == '}' || *p == ']') { ++p; continue; }
 
-		// 遇到 "strings" 或其他顶层键
+		// "strings" or other top-level keys
 		if (*p == '"')
 		{
 			String key = parseJsonString(p);
 
-			// 跳过冒号
+			// Skip the colon
 			while (*p && *p != ':' && *p != '"') ++p;
 
 			if (*p == ':')
@@ -116,24 +116,24 @@ bool LocaleMan::loadLanguageFile(StringRef filepath)
 				++p;
 			}
 
-			// 跳过空白
+			// Skip whitespace
 			while (*p && (*p == ' ' || *p == '\r' || *p == '\n' || *p == '\t')) ++p;
 
-			// 如果值是 { 对象，进入嵌套（"strings": { ... }）
+			// If value is { object, enter nesting ("strings": { ... })
 			if (*p == '{')
 			{
-				++p; // 跳过 {
+				++p; // Skip {
 				continue;
 			}
 
-			// 如果值是字符串
+			// If value is a string
 			if (*p == '"')
 			{
 				String value = parseJsonString(p);
 
 				if (!key.empty())
 				{
-					// 跳过元数据键
+					// Skip metadata keys
 					if (key == "language" || key == "author")
 					{
 						Debug::log("LocaleMan :: %s = %s\n", key.str(), value.str());
@@ -174,7 +174,7 @@ bool LocaleMan::setLanguage(Language lang)
 		filename = "lang/ko_KR.json";
 		break;
 	default:
-		// English: 不需要翻译文件
+		// English: no translation file needed
 		sEntries.clear();
 		sLanguage = Language::EN_US;
 		Debug::log("LocaleMan :: switched to EN_US (no translation needed)\n");
@@ -197,7 +197,7 @@ bool LocaleMan::setLanguage(Language lang)
 }
 
 // ================================================================================================
-// 翻译查询
+// Translation query
 
 String LocaleMan::translate(StringRef key)
 {
@@ -206,24 +206,24 @@ String LocaleMan::translate(StringRef key)
 		if (entry.key == key)
 			return entry.value;
 	}
-	return key; // 找不到翻译则返回 key 本身
+	return key; // No translation found, return key itself
 }
 
 String LocaleMan::tr(StringRef englishText, StringRef key)
 {
-	// 如果是英文，直接返回原文
+	// English: return source text directly
 	if (sLanguage == Language::EN_US)
 		return englishText;
 
-	// 优先用显式 key
+	// Prefer explicit key
 	String realKey = key.empty() ? englishText : key;
 	String translated = translate(realKey);
 
-	// 如果翻译结果和 key 不同，说明找到了
+	// If translation differs from key, we found a match
 	if (!(translated == realKey))
 		return translated;
 
-	// 如果 key 和英文不同，再试英文原文作为 key
+	// If key differs from English, retry with English as key
 	if (!key.empty() && !(key == englishText))
 	{
 		translated = translate(englishText);
@@ -231,7 +231,7 @@ String LocaleMan::tr(StringRef englishText, StringRef key)
 			return translated;
 	}
 
-	return englishText; // 最终 fallback
+	return englishText; // Final fallback
 }
 
 Language LocaleMan::currentLanguage()

@@ -231,7 +231,7 @@ static void SaveChart(StringRef path, const Simfile* sim, const Chart* chart)
 	Write(out, "Artist", sim->artistTr.len() ? sim->artistTr : sim->artist);
 	Write(out, "ArtistUnicode", sim->artist);
 	Write(out, "Creator", chart ? chart->artist : "Unknown");
-	Write(out, "Version", chart ? GetDifficultyName(chart->difficulty) : "Normal");
+	Write(out, "Version", chart ? GetDifficultyName(chart->difficulty).str() : "Normal");
 	Write(out, "Source", "");
 	Write(out, "Tags", "");
 	Write(out, "BeatmapID", "0");

@@ -79,7 +79,7 @@ void onDraw() override
 		color32 color = ToColor(chart->difficulty);
 		myBar->draw(left, 0, color);
 
-		Text::arrange(Text::ML, textStyle, GetDifficultyName(chart->difficulty));
+		Text::arrange(Text::ML, textStyle, GetDifficultyName(chart->difficulty).str());
 		Text::draw(vec2i{left.x + 4, left.y + 10});
 
 		Text::arrange(Text::MR, textStyle, Str::val(chart->meter).str());
@@ -215,7 +215,7 @@ void onDraw() override
 	Renderer::pushScissorRect({rect_.x, rect_.y, w, h});
 	if(myButtons.empty())
 	{
-		Text::arrange(Text::MC, textStyle, "- no charts -");
+		Text::arrange(Text::MC, textStyle, _TR("- no charts -").str());
 		Text::draw(vec2i{x + w / 2, y + rect_.h / 2});
 	}
 	else for(auto button : myButtons)
@@ -263,7 +263,7 @@ DialogChartList::~DialogChartList()
 
 DialogChartList::DialogChartList()
 {
-	setTitle("LIST OF CHARTS");
+	setTitle(_TR("LIST OF CHARTS").str());
 
 	setWidth(320);
 

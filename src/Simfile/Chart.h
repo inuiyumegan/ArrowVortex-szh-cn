@@ -42,7 +42,7 @@ struct Chart : NonCopyable
 	Tempo* tempo;
 };
 
-// Returns the name of the given difficulty type.
-const char* GetDifficultyName(Difficulty dt);
+// Returns the translated name of the given difficulty type.
+String GetDifficultyName(Difficulty dt);
 
 }; // namespace Vortex

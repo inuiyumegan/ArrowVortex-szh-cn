@@ -42,7 +42,7 @@ waveform {
   filterColor = 0.8, 0.8, 0.5, 1
   luminance = uniform
   waveStyle = rectified
-  antiAliasing = 1
+  antiAliasing = 0
 }
 audio {
   musicVolume = 100

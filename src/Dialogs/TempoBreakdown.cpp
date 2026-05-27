@@ -115,7 +115,7 @@ DialogTempoBreakdown::~DialogTempoBreakdown()
 
 DialogTempoBreakdown::DialogTempoBreakdown()
 {
-	setTitle("TEMPO BREAKDOWN");
+	setTitle(_TR("TEMPO BREAKDOWN").str());
 	setWidth(200);
 
 	setMinimumHeight(32);
