@@ -11,7 +11,7 @@
 
 **ArrowVortex** 是由 Bram "Fietsemaker" van de Wetering 最初开发的节奏游戏谱面编辑器，现已开源并以 GPLv3 许可证发布。它专为 **StepMania** 及其衍生节奏游戏（如 ITG、Etterna 等）设计，提供完整的谱面创建、编辑、转换和预览功能。
 
-本仓库为 **ArrowVortex 汉化版**，由 ArrowVortex 汉化组维护，提供完整的简体中文界面支持。
+本仓库为 **ArrowVortex 汉化版**，提供完整的简体中文界面支持。
 
 ## 主要功能
 
@@ -51,8 +51,7 @@ ArrowVortex-1.0.1/
 │   ├── noteskins/          # 音符皮肤
 │   └── settings/           # 配置文件
 ├── build_cn.bat            # 一键构建脚本（Windows）
-├── CREDITS                 # 致谢
-└── LICENSE                 # GPLv3 许可证
+└── CREDITS                 # 致谢
 ```
 
 ## 构建指南
@@ -61,21 +60,6 @@ ArrowVortex-1.0.1/
 
 1. 安装 **Visual Studio 2022 Community**，勾选「使用 C++ 的桌面开发」工作负载
 2. 确保安装了 **Windows 10 SDK**
-3. 双击运行 `build_cn.bat` 一键构建
-4. 构建产物输出至 `bin/` 目录
-
-### 手动构建
-
-```powershell
-# 使用 MSBuild
-msbuild build\VisualStudio\ArrowVortex.sln /p:Configuration=Release /p:Platform=x64
-```
-
-## 汉化版使用
-
-1. 构建完成后，将 `bin/` 目录下的可执行文件放入 `ArrowVortex_CN/` 目录
-2. 确保 `lang/zh_CN.json` 语言文件存在
-3. 启动后在设置中选择 `简体中文` 语言
 
 ## 第三方组件
 
@@ -96,7 +80,7 @@ msbuild build\VisualStudio\ArrowVortex.sln /p:Configuration=Release /p:Platform=
 - [DeltaEpsilon7787](https://github.com/DeltaEpsilon7787) — 开源贡献
 - [DolphinChips](https://github.com/DolphinChips) — 开源贡献
 - [StarbotArc](https://github.com/StarbotArc) — 开源贡献
-- **ArrowVortex 汉化组** — 简体中文汉化
+- 幽幽子的饲养员 — 简体中文汉化
 
 ## 许可证
 
