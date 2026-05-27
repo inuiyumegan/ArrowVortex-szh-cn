@@ -67,7 +67,7 @@ void DialogAdjustTempoSM5::myCreateWidgets()
 	spinner->setStep(0.001);
 	spinner->setRange(0, 1000);
 	spinner->onChange.bind(this, &DialogAdjustTempoSM5::onAction, (int)ACT_DELAY_SET);
-	spinner->setTooltip("Stop length at the current beat, in seconds");
+	spinner->setTooltip(_TR("Stop length at the current beat, in seconds").str());
 
 	myLayout.row().col(84).col(154);
 	spinner = myLayout.add<WgSpinner>("Warp");
@@ -75,7 +75,7 @@ void DialogAdjustTempoSM5::myCreateWidgets()
 	spinner->setPrecision(3, 6);
 	spinner->setRange(0, 1000);
 	spinner->onChange.bind(this, &DialogAdjustTempoSM5::onAction, (int)ACT_WARP_SET);
-	spinner->setTooltip("Warp length at the current beat, in beats");
+	spinner->setTooltip(_TR("Warp length at the current beat, in beats").str());
 
 	myLayout.row().col(84).col(75).col(75);
 
@@ -84,14 +84,14 @@ void DialogAdjustTempoSM5::myCreateWidgets()
 	spinner->setPrecision(0, 0);
 	spinner->setRange(1, 1000);
 	spinner->onChange.bind(this, &DialogAdjustTempoSM5::onAction, (int)ACT_TIME_SIG_SET);
-	spinner->setTooltip("Beats per measure");
+	spinner->setTooltip(_TR("Beats per measure").str());
 
 	spinner = myLayout.add<WgSpinner>();
 	spinner->value.bind(&myTimeSigNote);
 	spinner->setPrecision(0, 0);
 	spinner->setRange(1, 1000);
 	spinner->onChange.bind(this, &DialogAdjustTempoSM5::onAction, (int)ACT_TIME_SIG_SET);
-	spinner->setTooltip("Beat note type");
+	spinner->setTooltip(_TR("Beat note type").str());
 
 	myLayout.row().col(84).col(154);
 
@@ -100,7 +100,7 @@ void DialogAdjustTempoSM5::myCreateWidgets()
 	spinner->setPrecision(0, 0);
 	spinner->setRange(0, 1000);
 	spinner->onChange.bind(this, &DialogAdjustTempoSM5::onAction, (int)ACT_TICK_COUNT_SET);
-	spinner->setTooltip("Hold combo ticks per beat");
+	spinner->setTooltip(_TR("Hold combo ticks per beat").str());
 
 	myLayout.row().col(84).col(75).col(75);
 
@@ -109,14 +109,14 @@ void DialogAdjustTempoSM5::myCreateWidgets()
 	spinner->setPrecision(0, 0);
 	spinner->setRange(0, 1000);
 	spinner->onChange.bind(this, &DialogAdjustTempoSM5::onAction, (int)ACT_COMBO_SET);
-	spinner->setTooltip("Combo hit multiplier");
+	spinner->setTooltip(_TR("Combo hit multiplier").str());
 
 	spinner = myLayout.add<WgSpinner>();
 	spinner->value.bind(&myComboMiss);
 	spinner->setPrecision(0, 0);
 	spinner->setRange(0, 1000);
 	spinner->onChange.bind(this, &DialogAdjustTempoSM5::onAction, (int)ACT_COMBO_SET);
-	spinner->setTooltip("Combo miss multiplier");
+	spinner->setTooltip(_TR("Combo miss multiplier").str());
 
 	myLayout.row().col(84).col(52).col(56).col(38);
 
@@ -126,7 +126,7 @@ void DialogAdjustTempoSM5::myCreateWidgets()
 	spinner->setStep(0.1);
 	spinner->setRange(0, 1000);
 	spinner->onChange.bind(this, &DialogAdjustTempoSM5::onAction, (int)ACT_SPEED_SET);
-	spinner->setTooltip("Stretch ratio");
+	spinner->setTooltip(_TR("Stretch ratio").str());
 
 	spinner = myLayout.add<WgSpinner>();
 	spinner->value.bind(&mySpeedDelay);
@@ -134,12 +134,12 @@ void DialogAdjustTempoSM5::myCreateWidgets()
 	spinner->setStep(0.1);
 	spinner->setRange(0, 1000);
 	spinner->onChange.bind(this, &DialogAdjustTempoSM5::onAction, (int)ACT_SPEED_SET);
-	spinner->setTooltip("Delay time");
+	spinner->setTooltip(_TR("Delay time").str());
 
 	WgCycleButton* cycler = myLayout.add<WgCycleButton>();
 	cycler->value.bind(&mySpeedUnit);
 	cycler->onChange.bind(this, &DialogAdjustTempoSM5::onAction, (int)ACT_SPEED_SET);
-	cycler->setTooltip("Delay unit (beats/time)");
+	cycler->setTooltip(_TR("Delay unit (beats/time)").str());
 	cycler->addItem("B");
 	cycler->addItem("T");
 
@@ -151,20 +151,20 @@ void DialogAdjustTempoSM5::myCreateWidgets()
 	spinner->setStep(0.1);
 	spinner->setRange(0, 1000);
 	spinner->onChange.bind(this, &DialogAdjustTempoSM5::onAction, (int)ACT_SCROLL_SET);
-	spinner->setTooltip("Scroll ratio");
+	spinner->setTooltip(_TR("Scroll ratio").str());
 
 	spinner = myLayout.add<WgSpinner>("Fakes");
 	spinner->value.bind(&myFakeBeats);
 	spinner->setPrecision(3, 6);
 	spinner->setRange(0, 1000);
 	spinner->onChange.bind(this, &DialogAdjustTempoSM5::onAction, (int)ACT_FAKE_SET);
-	spinner->setTooltip("Fake region, in beats");
+	spinner->setTooltip(_TR("Fake region, in beats").str());
 
 	WgLineEdit* text = myLayout.add<WgLineEdit>("Label");
 	text->text.bind(&myLabelText);
 	text->setMaxLength(1000);
 	text->onChange.bind(this, &DialogAdjustTempoSM5::onAction, (int)ACT_LABEL_SET);
-	text->setTooltip("Label text");
+	text->setTooltip(_TR("Label text").str());
 }
 
 void DialogAdjustTempoSM5::onChanges(int changes)

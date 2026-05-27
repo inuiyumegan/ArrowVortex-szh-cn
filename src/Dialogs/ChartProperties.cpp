@@ -15,6 +15,8 @@
 #include <Editor/Common.h>
 #include <Managers/ChartMan.h>
 
+#include <Managers/LocaleMan.h>
+
 namespace Vortex {
 
 enum Result
@@ -102,7 +104,7 @@ void DialogChartProperties::myCreateChartProperties()
 	myStyleList = myLayout.add<WgDroplist>("Chart type");
 	myStyleList->value.bind(&myStyle);
 	myStyleList->setEnabled(false);
-	myStyleList->setTooltip("Game style of the chart");
+	myStyleList->setTooltip(_TR("Game style of the chart").str());
 
 	myLayout.row().col(76).col(148).col(80).col(24);
 
@@ -113,25 +115,25 @@ void DialogChartProperties::myCreateChartProperties()
 	{
 		diff->addItem(GetDifficultyName((Difficulty)i));
 	}
-	diff->setTooltip("Difficulty type of the chart");
+	diff->setTooltip(_TR("Difficulty type of the chart").str());
 
 	WgSpinner* meter = myLayout.add<WgSpinner>();
 	meter->value.bind(&myRating);
 	meter->setRange(1.0, 100000.0);
 	meter->onChange.bind(this, &DCP::mySetRating);
-	meter->setTooltip("Difficulty rating/meter of the chart");
+	meter->setTooltip(_TR("Difficulty rating/meter of the chart").str());
 
 	WgButton* calc = myLayout.add<WgButton>();
 	calc->text.set("{g:calculate}");
 	calc->onPress.bind(this, &DCP::myCalcRating);
-	calc->setTooltip("Estimate the chart difficulty by analyzing the notes");
+	calc->setTooltip(_TR("Estimate the chart difficulty by analyzing the notes").str());
 
 	myLayout.row().col(76).col(260);
 
 	WgLineEdit* artist = myLayout.add<WgLineEdit>("Step artist");
 	artist->text.bind(&myStepArtist);
 	artist->onChange.bind(this, &DCP::mySetStepArtist);
-	artist->setTooltip("Author of the chart");
+	artist->setTooltip(_TR("Author of the chart").str());
 }
 
 void DialogChartProperties::mySetStepArtist()
@@ -186,7 +188,7 @@ void DialogChartProperties::myCreateNoteInfo()
 
 	WgButton* copy = myLayout.add<WgButton>();
 	copy->text.set("{g:copy}");
-	copy->setTooltip("Copy note information to clipboard");
+	copy->setTooltip(_TR("Copy note information to clipboard").str());
 	copy->onPress.bind(this, &DCP::myCopyNoteInfo);
 
 	WgLabel* info = myLayout.add<WgLabel>();
@@ -194,12 +196,12 @@ void DialogChartProperties::myCreateNoteInfo()
 
 	const char* tooltips[] =
 	{
-		"Select all steps",
-		"Select all jump notes",
-		"Select all mines",
-		"Select all hold notes",
-		"Select all roll notes",
-		"Select all warped notes",
+		_TR("Select all steps").str(),
+		_TR("Select all jump notes").str(),
+		_TR("Select all mines").str(),
+		_TR("Select all hold notes").str(),
+		_TR("Select all roll notes").str(),
+		_TR("Select all warped notes").str(),
 	};
 
 	myLayout.row().col(53).col(53).col(53).col(53).col(53).col(53);
@@ -403,7 +405,7 @@ void DialogChartProperties::myCreateBreakdown()
 
 	WgButton* copy = myLayout.add<WgButton>();
 	copy->text.set("{g:copy}");
-	copy->setTooltip("Copy stream breakdown to clipboard");
+	copy->setTooltip(_TR("Copy stream breakdown to clipboard").str());
 	copy->onPress.bind(this, &DCP::myCopyBreakdown);
 
 	WgLabel* info = myLayout.add<WgLabel>();

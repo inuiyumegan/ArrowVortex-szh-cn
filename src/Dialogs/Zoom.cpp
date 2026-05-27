@@ -5,6 +5,8 @@
 
 #include <Editor/View.h>
 
+#include <Managers/LocaleMan.h>
+
 namespace Vortex {
 
 enum Actions
@@ -31,7 +33,7 @@ void DialogZoom::myCreateWidgets()
 	slider->value.bind(&myZoomLevel);
 	slider->onChange.bind(this, &DialogZoom::onAction, (int)ACT_ZOOM);
 	slider->setRange(1.0, 19.0);
-	slider->setTooltip("Zoom Level");
+	slider->setTooltip(_TR("Zoom Level").str());
 
 	WgSpinner* spinner = myLayout.add<WgSpinner>();
 	spinner->value.bind(&myZoomLevel);
@@ -44,7 +46,7 @@ void DialogZoom::myCreateWidgets()
 	slider->value.bind(&myScaleLevel);
 	slider->onChange.bind(this, &DialogZoom::onAction, (int)ACT_SCALE);
 	slider->setRange(1.0, 10.0);
-	slider->setTooltip("Note Scale");
+	slider->setTooltip(_TR("Note Scale").str());
 
 	spinner = myLayout.add<WgSpinner>();
 	spinner->value.bind(&myScaleLevel);

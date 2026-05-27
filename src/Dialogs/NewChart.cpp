@@ -10,6 +10,8 @@
 #include <Managers/StyleMan.h>
 #include <Managers/SimfileMan.h>
 
+#include <Managers/LocaleMan.h>
+
 #include <Editor/Common.h>
 #include <Editor/Editor.h>
 
@@ -35,7 +37,7 @@ void DialogNewChart::myCreateWidgets()
 
 	myStyleList = myLayout.add<WgDroplist>("Chart type");
 	myStyleList->value.bind(&myStyle);
-	myStyleList->setTooltip("Game style of the chart");
+	myStyleList->setTooltip(_TR("Game style of the chart").str());
 	for(int i = 0; i < gStyle->getNumStyles(); ++i)
 	{
 		myStyleList->addItem(gStyle->get(i)->name);
@@ -45,21 +47,21 @@ void DialogNewChart::myCreateWidgets()
 
 	WgDroplist* diffs = myLayout.add<WgDroplist>("Difficulty");
 	diffs->value.bind(&myDifficulty);
-	diffs->setTooltip("Difficulty type of the chart");
+	diffs->setTooltip(_TR("Difficulty type of the chart").str());
 	for(int i = 0; i < NUM_DIFFICULTIES; ++i)
 	{
 		diffs->addItem(GetDifficultyName((Difficulty)i));
 	}
 
 	WgSpinner* rating = myLayout.add<WgSpinner>();
-	rating->setTooltip("Difficulty rating/meter of the chart");
+	rating->setTooltip(_TR("Difficulty rating/meter of the chart").str());
 	rating->value.bind(&myRating);
 	rating->setRange(1.0, 100000.0);
 
 	myLayout.row().col(76).col(232);
 
 	WgLineEdit* artist = myLayout.add<WgLineEdit>("Step artist");
-	artist->setTooltip("Author of the chart");
+	artist->setTooltip(_TR("Author of the chart").str());
 	artist->text.bind(&myStepArtist);
 
 	myLayout.row().col(312);
@@ -71,7 +73,7 @@ void DialogNewChart::myCreateWidgets()
 	WgButton* accept = myLayout.add<WgButton>();
 	accept->text.set("Create");
 	accept->onPress.bind(this, &DialogNewChart::myCreateChart);
-	accept->setTooltip("Create a chart with the current settings");
+	accept->setTooltip(_TR("Create a chart with the current settings").str());
 }
 
 void DialogNewChart::myCreateChart()

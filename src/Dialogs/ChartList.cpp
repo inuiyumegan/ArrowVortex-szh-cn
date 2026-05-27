@@ -12,6 +12,8 @@
 #include <Managers/ChartMan.h>
 #include <Managers/SimfileMan.h>
 
+#include <Managers/LocaleMan.h>
+
 #include <Editor/Common.h>
 
 namespace Vortex {
@@ -54,7 +56,7 @@ void onTick() override
 	GuiWidget::onTick();
 	if(isMouseOver())
 	{
-		GuiMain::setTooltip("Open this chart in the editor");
+		GuiMain::setTooltip(_TR("Open this chart in the editor").str());
 	}
 }
 

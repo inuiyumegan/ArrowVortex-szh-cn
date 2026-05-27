@@ -82,7 +82,7 @@ WgSpinner* DialogAdjustTempo::myCreateWidgetRow(StringRef label, int y, double& 
 	WgButton* tweak = myLayout.add<WgButton>();
 	tweak->text.set("{g:tweak}");
 	tweak->onPress.bind(this, &DialogAdjustTempo::onAction, action + 3);
-	tweak->setTooltip(isBPM ? "Tweak the current BPM" : "Tweak the current stop");
+	tweak->setTooltip(isBPM ? _TR("Tweak the current BPM").str() : _TR("Tweak the current stop").str());
 
 	return spinner;
 }
@@ -116,7 +116,7 @@ void DialogAdjustTempo::myCreateWidgets()
 	cycle->addItem(_TR("This chart"));
 	cycle->addItem(_TR("All charts"));
 	cycle->value.bind(&myInsertTarget);
-	cycle->setTooltip("Determines which notes and/or tempo changes are targeted");
+	cycle->setTooltip(_TR("Determines which notes and/or tempo changes are targeted").str());
 	
 	WgButton* insert = myLayout.add<WgButton>();
 	insert->text.set(_TR("Insert beats").str());

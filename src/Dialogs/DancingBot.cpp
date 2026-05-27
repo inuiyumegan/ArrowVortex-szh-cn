@@ -12,6 +12,8 @@
 #include <Managers/StyleMan.h>
 #include <Editor/Editor.h>
 
+#include <Managers/LocaleMan.h>
+
 #define _USE_MATH_DEFINES
 #include <math.h>
 
@@ -361,13 +363,13 @@ void DialogDancingBot::myCreateWidgets()
 	footswitch->text.set("Footswitch");
 	footswitch->value.bind(&myDoFootswitches);
 	footswitch->onChange.bind(this, &DialogDancingBot::onDoFootswitchesChanged);
-	footswitch->setTooltip("If enabled, the dancing bot will attempt footswitches");
+	footswitch->setTooltip(_TR("If enabled, the dancing bot will attempt footswitches").str());
 
 	WgCheckbox* crossover = myLayout.add<WgCheckbox>();
 	crossover->text.set("Crossover");
 	crossover->value.bind(&myDoCrossovers);
 	crossover->onChange.bind(this, &DialogDancingBot::onDoCrossoversChanged);
-	crossover->setTooltip("If enabled, the dancing bot will attempt crossovers");
+	crossover->setTooltip(_TR("If enabled, the dancing bot will attempt crossovers").str());
 }
 
 void DialogDancingBot::onUpdateSize()

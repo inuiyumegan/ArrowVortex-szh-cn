@@ -5,6 +5,8 @@
 #include <Core/GuiContext.h>
 #include <Core/GuiWidget.h>
 
+#include <Managers/LocaleMan.h>
+
 namespace Vortex {
 
 #define MY_GUI ((GuiContextImpl*)gui_)
@@ -349,7 +351,7 @@ void DialogData::draw()
 			titleTextW -= FRAME_BUTTON_W;
 			if(action == ACT_CLOSE)
 			{
-				GuiMain::setTooltip("Close the dialog");
+				GuiMain::setTooltip(_TR("Close the dialog").str());
 			}
 		}
 		if(is_minimizable_)
@@ -361,7 +363,7 @@ void DialogData::draw()
 			titleTextW -= FRAME_BUTTON_W;
 			if(action == ACT_MINIMIZE)
 			{
-				GuiMain::setTooltip(minimized_state_ ? "Show the dialog contents" : "Hide the dialog contents");
+				GuiMain::setTooltip(minimized_state_ ? _TR("Show the dialog contents").str() : _TR("Hide the dialog contents").str());
 			}
 		}
 	}
@@ -374,7 +376,7 @@ void DialogData::draw()
 		titleTextW -= FRAME_BUTTON_W;
 		if(action == ACT_PIN)
 		{
-			GuiMain::setTooltip(pinned_state_ ? "Unpin the dialog" : "Pin the dialog");
+			GuiMain::setTooltip(pinned_state_ ? _TR("Unpin the dialog").str() : _TR("Pin the dialog").str());
 		}
 	}
 	

@@ -337,6 +337,59 @@
     "WAVEFORM SETTINGS": "波形设置",
     "TEMPO BREAKDOWN": "节拍分段",
     "ZOOM": "缩放",
-    "CUSTOM SNAP": "自定义分度"
+    "CUSTOM SNAP": "自定义分度",
+
+    "Music tempo at the first beat, in beats per minute": "首拍处的音乐速度（BPM）",
+    "Music tempo at the current beat, in beats per minute": "当前拍的音乐速度（BPM）",
+    "Tweak the initial BPM": "微调初始 BPM",
+    "Apply the selected BPM estimate": "应用选中的 BPM 估计值",
+    "Determines the lightness of the waveform peaks": "决定波形峰值的亮度",
+    "Determines the shape of the waveform peaks": "决定波形峰值的形状",
+
+    "Zoom Level": "缩放级别",
+    "Note Scale": "音符缩放",
+
+    "Game style of the chart": "谱面的游戏模式",
+    "Difficulty type of the chart": "谱面的难度类型",
+    "Difficulty rating/meter of the chart": "谱面的难度评级",
+    "Estimate the chart difficulty by analyzing the notes": "通过分析音符估算谱面难度",
+    "Author of the chart": "谱面作者",
+    "Create a chart with the current settings": "使用当前设置创建谱面",
+    "Copy note information to clipboard": "复制音符信息到剪贴板",
+    "Select all steps": "选择所有音符",
+    "Select all jump notes": "选择所有跳跃音符",
+    "Select all mines": "选择所有地雷",
+    "Select all hold notes": "选择所有长键",
+    "Select all roll notes": "选择所有连键",
+    "Select all warped notes": "选择所有变速音符",
+    "Copy stream breakdown to clipboard": "复制连击流分段到剪贴板",
+
+    "Open this chart in the editor": "在编辑器中打开此谱面",
+
+    "Tweak the current BPM": "微调当前 BPM",
+    "Tweak the current stop": "微调当前停止",
+    "Determines which notes and/or tempo changes are targeted": "决定哪些音符和/或速度变化被影响",
+
+    "Warp length at the current beat, in beats": "当前拍的变速长度（拍）",
+    "Beats per measure": "每小节拍数",
+    "Beat note type": "拍子类型",
+    "Hold combo ticks per beat": "每拍保持连击的 ticks",
+    "Combo hit multiplier": "连击命中倍率",
+    "Combo miss multiplier": "连击错击倍率",
+    "Stretch ratio": "拉伸比例",
+    "Delay time": "延迟时间",
+    "Delay unit (beats/time)": "延迟单位（拍/时间）",
+    "Scroll ratio": "滚动比例",
+    "Fake region, in beats": "假键区域（拍）",
+    "Label text": "标签文字",
+
+    "If enabled, the dancing bot will attempt footswitches": "启用后，自动游玩 bot 将尝试换脚",
+    "If enabled, the dancing bot will attempt crossovers": "启用后，自动游玩 bot 将尝试交叉",
+
+    "Close the dialog": "关闭对话框",
+    "Show the dialog contents": "显示对话框内容",
+    "Hide the dialog contents": "隐藏对话框内容",
+    "Unpin the dialog": "取消固定对话框",
+    "Pin the dialog": "固定对话框"
   }
 }
