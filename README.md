@@ -1,8 +1,6 @@
 # ArrowVortex
 
-> 一款开源、跨平台的 **StepMania / ITG 谱面编辑器**，支持 `.sm` / `.ssc` 格式的谱面制作与编辑。
-
-[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)]()
+> 一款开源的 **StepMania / osu!mania谱面编辑器**，支持 `.sm` / `.osu` 格式的谱面制作与编辑。
 
 ---
 
@@ -44,12 +42,10 @@ ArrowVortex-1.0.1/
 │   └── lua/                # Lua 脚本引擎
 ├── build/                  # 构建配置
 │   └── VisualStudio/       # Visual Studio 项目文件
-├── ArrowVortex_CN/         # 汉化版运行目录
 │   ├── lang/               # 语言文件 (zh_CN.json)
 │   ├── assets/             # 资源文件
 │   ├── noteskins/          # 音符皮肤
 │   └── settings/           # 配置文件
-├── build_cn.bat            # 一键构建脚本（Windows）
 └── CREDITS                 # 致谢
 ```
 
