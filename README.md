@@ -2,7 +2,6 @@
 
 > 一款开源、跨平台的 **StepMania / ITG 谱面编辑器**，支持 `.sm` / `.ssc` 格式的谱面制作与编辑。
 
-[![License](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)]()
 
 ---
